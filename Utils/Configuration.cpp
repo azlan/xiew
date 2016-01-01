@@ -507,12 +507,12 @@ void Configuration::writeShortcuts()
 
 const QColor Configuration::getColor(const QString id) const
 {
-    if(Colors.contains(id))
-        return Colors.constFind(id).value();
-    QMessageBox msg(QMessageBox::Warning, "NOT FOUND IN CONFIG!", id);
-    msg.setWindowIcon(QIcon(":/icons/images/compile-warning.png"));
-    msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
-    msg.exec();
+//    if(Colors.contains(id))
+//        return Colors.constFind(id).value();
+//    QMessageBox msg(QMessageBox::Warning, "NOT FOUND IN CONFIG!", id);
+//    msg.setWindowIcon(QIcon(":/icons/images/compile-warning.png"));
+//    msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
+//    msg.exec();
     return Qt::black;
 }
 
@@ -598,12 +598,12 @@ void Configuration::setUint(const QString category, const QString id, const duin
 
 const QFont Configuration::getFont(const QString id) const
 {
-    if(Fonts.contains(id))
-        return Fonts.constFind(id).value();
-    QMessageBox msg(QMessageBox::Warning, "NOT FOUND IN CONFIG!", id);
-    msg.setWindowIcon(QIcon(":/icons/images/compile-warning.png"));
-    msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
-    msg.exec();
+//    if(Fonts.contains(id))
+//        return Fonts.constFind(id).value();
+//    QMessageBox msg(QMessageBox::Warning, "NOT FOUND IN CONFIG!", id);
+//    msg.setWindowIcon(QIcon(":/icons/images/compile-warning.png"));
+//    msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));
+//    msg.exec();
     QFont ret("Lucida Console", 8, QFont::Normal, false);
     ret.setFixedPitch(true);
     ret.setStyleHint(QFont::Monospace);

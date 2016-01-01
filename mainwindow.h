@@ -6,6 +6,7 @@
 namespace Ui {
 class MainWindow;
 }
+class MyDump;
 
 class MainWindow : public QMainWindow
 {
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    MyDump *mMyDump;
 };
 
 #endif // MAINWINDOW_H
