@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     BasicView/HexDump.cpp \
     Utils/Configuration.cpp \
     Utils/RichTextPainter.cpp \
-    Memory/MemoryPage.cpp
+    Memory/MemoryPage.cpp \
+    mydump.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -30,7 +31,8 @@ HEADERS  += mainwindow.h \
     Utils/StringUtil.h \
     dbg_types.h \
     Imports.h \
-    Memory/MemoryPage.h
+    Memory/MemoryPage.h \
+    mydump.h
 
 FORMS    += mainwindow.ui
 
