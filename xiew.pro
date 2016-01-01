@@ -13,8 +13,35 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    BasicView/AbstractTableView.cpp \
+    BasicView/HexDump.cpp \
+    Utils/Configuration.cpp \
+    Utils/RichTextPainter.cpp \
+    Memory/MemoryPage.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    BasicView/AbstractTableView.h \
+    BasicView/HexDump.h \
+    Utils/Configuration.h \
+    Utils/RichTextPainter.h \
+    Utils/MenuBuilder.h \
+    Utils/QActionLambda.h \
+    Utils/StringUtil.h \
+    dbg_types.h \
+    Imports.h \
+    Memory/MemoryPage.h
 
 FORMS    += mainwindow.ui
+
+INCLUDEPATH += \
+    Gui \
+    BasicView \
+    Disassembler \
+    ThirdPartyLibs/capstone \
+    ThirdPartyLibs/snowman \
+    Memory \
+    Bridge \
+    Global \
+    Utils \
+    ../capstone_wrapper
