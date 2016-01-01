@@ -1,7 +1,7 @@
 #include "HexDump.h"
 #include <sstream>
 #include "Configuration.h"
-#include "Bridge.h"
+//#include "Bridge.h"
 
 HexDump::HexDump(QWidget* parent) : AbstractTableView(parent)
 {
@@ -25,8 +25,8 @@ HexDump::HexDump(QWidget* parent) : AbstractTableView(parent)
     mRvaDisplayEnabled = false;
 
     // Slots
-    connect(Bridge::getBridge(), SIGNAL(updateDump()), this, SLOT(reloadData()));
-    connect(Bridge::getBridge(), SIGNAL(dbgStateChanged(DBGSTATE)), this, SLOT(debugStateChanged(DBGSTATE)));
+    //connect(Bridge::getBridge(), SIGNAL(updateDump()), this, SLOT(reloadData()));
+    //connect(Bridge::getBridge(), SIGNAL(dbgStateChanged(DBGSTATE)), this, SLOT(debugStateChanged(DBGSTATE)));
 
     Initialize();
 }
@@ -48,8 +48,12 @@ void HexDump::updateFonts()
 
 void HexDump::printDumpAt(dsint parVA, bool select, bool repaint, bool updateTableOffset)
 {
-    dsint wBase = DbgMemFindBaseAddr(parVA, 0); //get memory base
-    dsint wSize = DbgMemGetPageSize(wBase); //get page size
+//    dsint wBase = DbgMemFindBaseAddr(parVA, 0); //get memory base
+//    dsint wSize = DbgMemGetPageSize(wBase); //get page size
+    // TODO
+    dsint wBase = 0; //get memory base
+    dsint wSize = 0; //get page size
+
     if(!wBase || !wSize)
         return;
     dsint wRVA = parVA - wBase; //calculate rva
@@ -162,11 +166,11 @@ void HexDump::mousePressEvent(QMouseEvent* event)
 {
     if(event->buttons() == Qt::MiddleButton) //copy address to clipboard
     {
-        if(!DbgIsDebugging())
-            return;
-        MessageBeep(MB_OK);
+//        if(!DbgIsDebugging())
+//            return;
+//        MessageBeep(MB_OK);
         QString addrText = QString("%1").arg(rvaToVa(getInitialSelection()), sizeof(dsint) * 2, 16, QChar('0')).toUpper();
-        Bridge::CopyToClipboard(addrText);
+        //Bridge::CopyToClipboard(addrText);
         return;
     }
     //qDebug() << "HexDump::mousePressEvent";
@@ -394,7 +398,8 @@ void HexDump::getString(int col, dsint rva, QList<RichTextPainter::CustomRichTex
         curData.text = wStr;
         dsint start = rvaToVa(rva + wI * wByteCount);
         dsint end = start + wByteCount - 1;
-        curData.textColor = DbgFunctions()->PatchInRange(start, end) ? highlightColor : textColor;
+        // TODO
+        //curData.textColor = DbgFunctions()->PatchInRange(start, end) ? highlightColor : textColor;
         richText->push_back(curData);
     }
 
@@ -1003,12 +1008,4 @@ void HexDump::clearDescriptors()
     addColumnAt(8 + charwidth * 2 * sizeof(duint), "Address", false); //address
 }
 
-void HexDump::debugStateChanged(DBGSTATE state)
-{
-    if(state == stopped)
-    {
-        mMemPage->setAttributes(0, 0);
-        setRowCount(0);
-        reloadData();
-    }
-}
+

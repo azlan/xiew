@@ -15,6 +15,9 @@
 #define ConfigFont(x) (Config()->getFont(x))
 #define ConfigShortcut(x) (Config()->getShortcut(x).Hotkey)
 
+//Bridge defines
+#define MAX_SETTING_SIZE 65536
+
 class Configuration : public QObject
 {
     Q_OBJECT

@@ -139,7 +139,7 @@ signals:
 
 public slots:
     void printDumpAt(dsint parVA);
-    void debugStateChanged(DBGSTATE state);
+    //void debugStateChanged(DBGSTATE state);
 
 private:
     enum GuiState_t {NoState, MultiRowsSelectionState};

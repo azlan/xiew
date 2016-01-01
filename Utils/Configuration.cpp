@@ -418,25 +418,25 @@ void Configuration::readUints()
 
 void Configuration::writeUints()
 {
-    duint setting;
-    bool bSaveLoadTabOrder = ConfigBool("Miscellaneous", "LoadSaveTabOrder");
+//    duint setting;
+//    bool bSaveLoadTabOrder = ConfigBool("Miscellaneous", "LoadSaveTabOrder");
 
     //write config
-    for(int i = 0; i < Uints.size(); i++)
-    {
-        QString category = Uints.keys().at(i);
-        QMap<QString, duint>* currentUint = &Uints[category];
-        for(int j = 0; j < currentUint->size(); j++)
-        {
-            QString id = (*currentUint).keys().at(j);
+//    for(int i = 0; i < Uints.size(); i++)
+//    {
+//        QString category = Uints.keys().at(i);
+//        QMap<QString, duint>* currentUint = &Uints[category];
+//        for(int j = 0; j < currentUint->size(); j++)
+//        {
+//            QString id = (*currentUint).keys().at(j);
 
-            // Do not save settings to file if saveLoadTabOrder checkbox is Unchecked
-            if(!bSaveLoadTabOrder && category == "TabOrder" && BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
-                continue;
+//            // Do not save settings to file if saveLoadTabOrder checkbox is Unchecked
+//            if(!bSaveLoadTabOrder && category == "TabOrder" && BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
+//                continue;
 
-            uintToConfig(category, id, (*currentUint)[id]);
-        }
-    }
+//            uintToConfig(category, id, (*currentUint)[id]);
+//        }
+//    }
 }
 
 void Configuration::readFonts()
@@ -637,16 +637,17 @@ void Configuration::setShortcut(const QString key_id, const QKeySequence key_seq
 QColor Configuration::colorFromConfig(const QString id)
 {
     char setting[MAX_SETTING_SIZE] = "";
-    if(!BridgeSettingGet("Colors", id.toUtf8().constData(), setting))
-    {
-        if(defaultColors.contains(id))
-        {
-            QColor ret = defaultColors.find(id).value();
-            colorToConfig(id, ret);
-            return ret;
-        }
-        return Qt::black; //black is default
-    }
+//    if(!BridgeSettingGet("Colors", id.toUtf8().constData(), setting))
+//    {
+//        if(defaultColors.contains(id))
+//        {
+//            QColor ret = defaultColors.find(id).value();
+//            colorToConfig(id, ret);
+//            return ret;
+//        }
+//        return Qt::black; //black is default
+//    }
+
     if(QString(setting).toUpper() == "#XXXXXX") //support custom transparent color name
         return Qt::transparent;
     QColor color(setting);
@@ -665,72 +666,75 @@ QColor Configuration::colorFromConfig(const QString id)
 
 bool Configuration::colorToConfig(const QString id, const QColor color)
 {
-    QString colorName = color.name().toUpper();
-    if(!color.alpha())
-        colorName = "#XXXXXX";
-    return BridgeSettingSet("Colors", id.toUtf8().constData(), colorName.toUtf8().constData());
+//    QString colorName = color.name().toUpper();
+//    if(!color.alpha())
+//        colorName = "#XXXXXX";
+//    return BridgeSettingSet("Colors", id.toUtf8().constData(), colorName.toUtf8().constData());
+    return false;
 }
 
 bool Configuration::boolFromConfig(const QString category, const QString id)
 {
     duint setting;
-    if(!BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
-    {
-        if(defaultBools.contains(category) && defaultBools[category].contains(id))
-        {
-            bool ret = defaultBools[category][id];
-            boolToConfig(category, id, ret);
-            return ret;
-        }
-        return false; //DAFUG
-    }
+//    if(!BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
+//    {
+//        if(defaultBools.contains(category) && defaultBools[category].contains(id))
+//        {
+//            bool ret = defaultBools[category][id];
+//            boolToConfig(category, id, ret);
+//            return ret;
+//        }
+//        return false; //DAFUG
+//    }
     return (setting != 0);
 }
 
 bool Configuration::boolToConfig(const QString category, const QString id, const bool bBool)
 {
-    return BridgeSettingSetUint(category.toUtf8().constData(), id.toUtf8().constData(), bBool);
+    //return BridgeSettingSetUint(category.toUtf8().constData(), id.toUtf8().constData(), bBool);
+    return false;
 }
 
 duint Configuration::uintFromConfig(const QString category, const QString id)
 {
     duint setting;
-    if(!BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
-    {
-        if(defaultUints.contains(category) && defaultUints[category].contains(id))
-        {
-            setting = defaultUints[category][id];
-            uintToConfig(category, id, setting);
-            return setting;
-        }
-        return 0; //DAFUG
-    }
+//    if(!BridgeSettingGetUint(category.toUtf8().constData(), id.toUtf8().constData(), &setting))
+//    {
+//        if(defaultUints.contains(category) && defaultUints[category].contains(id))
+//        {
+//            setting = defaultUints[category][id];
+//            uintToConfig(category, id, setting);
+//            return setting;
+//        }
+//        return 0; //DAFUG
+//    }
     return setting;
 }
 
 bool Configuration::uintToConfig(const QString category, const QString id, duint i)
 {
-    return BridgeSettingSetUint(category.toUtf8().constData(), id.toUtf8().constData(), i);
+    //return BridgeSettingSetUint(category.toUtf8().constData(), id.toUtf8().constData(), i);
+    return false;
 }
 
 QFont Configuration::fontFromConfig(const QString id)
 {
     char setting[MAX_SETTING_SIZE] = "";
-    if(!BridgeSettingGet("Fonts", id.toUtf8().constData(), setting))
-    {
-        if(defaultFonts.contains(id))
-        {
-            QFont ret = defaultFonts.find(id).value();
-            fontToConfig(id, ret);
-            return ret;
-        }
-        if(id == "Application")
-            return QApplication::font();
-        QFont ret("Lucida Console", 8, QFont::Normal, false);
-        ret.setFixedPitch(true);
-        ret.setStyleHint(QFont::Monospace);
-        return ret;
-    }
+//    if(!BridgeSettingGet("Fonts", id.toUtf8().constData(), setting))
+//    {
+//        if(defaultFonts.contains(id))
+//        {
+//            QFont ret = defaultFonts.find(id).value();
+//            fontToConfig(id, ret);
+//            return ret;
+//        }
+//        if(id == "Application")
+//            return QApplication::font();
+//        QFont ret("Lucida Console", 8, QFont::Normal, false);
+//        ret.setFixedPitch(true);
+//        ret.setStyleHint(QFont::Monospace);
+//        return ret;
+//    }
     QFont font;
     if(!font.fromString(setting))
     {
@@ -752,17 +756,18 @@ QFont Configuration::fontFromConfig(const QString id)
 
 bool Configuration::fontToConfig(const QString id, const QFont font)
 {
-    return BridgeSettingSet("Fonts", id.toUtf8().constData(), font.toString().toUtf8().constData());
+    //return BridgeSettingSet("Fonts", id.toUtf8().constData(), font.toString().toUtf8().constData());
+    return false;
 }
 
 QString Configuration::shortcutFromConfig(const QString id)
 {
     QString _id = QString("%1").arg(id);
     char setting[MAX_SETTING_SIZE] = "";
-    if(BridgeSettingGet("Shortcuts", _id.toUtf8().constData(), setting))
-    {
-        return QString(setting);
-    }
+//    if(BridgeSettingGet("Shortcuts", _id.toUtf8().constData(), setting))
+//    {
+//        return QString(setting);
+//    }
     return "";
 }
 
@@ -774,5 +779,6 @@ bool Configuration::shortcutToConfig(const QString id, const QKeySequence shortc
         _key = shortcut.toString(QKeySequence::NativeText);
     else
         _key = "NOT_SET";
-    return BridgeSettingSet("Shortcuts", _id.toUtf8().constData(), _key.toUtf8().constData());
+    //return BridgeSettingSet("Shortcuts", _id.toUtf8().constData(), _key.toUtf8().constData());
+    return false;
 }
