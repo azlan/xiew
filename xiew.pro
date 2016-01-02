@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     BasicView/Disassembly.cpp \
     capstone_wrapper/capstone_wrapper.cpp \
     Disassembler/capstone_gui.cpp \
-    Disassembler/QBeaEngine.cpp
+    Disassembler/QBeaEngine.cpp \
+    mydisassembly.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     BasicView/Disassembly.h \
     capstone_wrapper/capstone_wrapper.h \
     Disassembler/capstone_gui.h \
-    Disassembler/QBeaEngine.h
+    Disassembler/QBeaEngine.h \
+    mydisassembly.h
 
 FORMS    += mainwindow.ui
 
@@ -65,8 +67,8 @@ LIBS += -luser32
 !contains(QMAKE_HOST.arch, x86_64) {
     # Windows x86 (32bit) specific build
 #capstone\msvc\Debug\capstone.lib
-    LIBS += -L"$$PWD/capstone/msvc/Release/" -lcapstone
-    #LIBS += -L"$$PWD/libs/" -lcapstone_x86
+    #LIBS += -L"$$PWD/capstone/msvc/Release/" -lcapstone
+    LIBS += -L"$$PWD/libs/" -lcapstone_x86
 #    LIBS += -L"$$PWD/Src/ThirdPartyLibs/snowman/" -lsnowman_x86
 
 } else {

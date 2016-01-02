@@ -413,6 +413,7 @@ QString Disassembly::paintContent(QPainter* painter, dsint rowBase, int rowOffse
 //            }
 //            loopsize += paintFunctionGraphic(painter, x + loopsize, y, funcType, true);
 //            depth++;
+            break;
         }
 
         QList<RichTextPainter::CustomRichText_t> richText;
