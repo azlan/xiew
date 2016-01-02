@@ -19,7 +19,11 @@ SOURCES += main.cpp\
     Utils/Configuration.cpp \
     Utils/RichTextPainter.cpp \
     Memory/MemoryPage.cpp \
-    mydump.cpp
+    mydump.cpp \
+    BasicView/Disassembly.cpp \
+    capstone_wrapper/capstone_wrapper.cpp \
+    Disassembler/capstone_gui.cpp \
+    Disassembler/QBeaEngine.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -32,7 +36,11 @@ HEADERS  += mainwindow.h \
     dbg_types.h \
     Imports.h \
     Memory/MemoryPage.h \
-    mydump.h
+    mydump.h \
+    BasicView/Disassembly.h \
+    capstone_wrapper/capstone_wrapper.h \
+    Disassembler/capstone_gui.h \
+    Disassembler/QBeaEngine.h
 
 FORMS    += mainwindow.ui
 
@@ -46,4 +54,5 @@ INCLUDEPATH += \
     Bridge \
     Global \
     Utils \
-    ../capstone_wrapper
+    capstone_wrapper \
+    capstone\\include
