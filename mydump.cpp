@@ -1,3 +1,4 @@
+#include <QFile>
 #include "mydump.h"
 
 #define MAX_LABEL_SIZE 256
@@ -5,10 +6,14 @@
 
 MyDump::MyDump( QWidget* parent) : HexDump(parent)
 {
-
+    hexAsciiSlot();
+    printDumpAt(mMemPage->getBase());
 }
 
+MyDump::~MyDump()
+{
 
+}
 
 void MyDump::hexAsciiSlot()
 {
@@ -47,9 +52,8 @@ void MyDump::hexAsciiSlot()
 QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)
 {
     // Reset byte offset when base address is reached
-    //TODO
-//    if(rowBase == 0 && mByteOffset != 0)
-//        printDumpAt(mMemPage->getBase(), false, false);
+    if(rowBase == 0 && mByteOffset != 0)
+        printDumpAt(mMemPage->getBase(), false, false);
 
     QString wStr = "";
     if(!col) //address
@@ -118,10 +122,10 @@ QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, in
         dsint wRva = (rowBase + rowOffset) * getBytePerRowCount() - mByteOffset;
         //TODO
         mMemPage->read((byte_t*)&data, wRva, sizeof(duint));
-        char modname[MAX_MODULE_SIZE] = "";
+//        char modname[MAX_MODULE_SIZE] = "";
 //        if(!DbgGetModuleAt(data, modname))
 //            modname[0] = '\0';
-        char label_text[MAX_LABEL_SIZE] = "";
+//        char label_text[MAX_LABEL_SIZE] = "";
 //        if(DbgGetLabelAt(data, SEG_DEFAULT, label_text))
 //            wStr = QString(modname) + "." + QString(label_text);
     }

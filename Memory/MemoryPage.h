@@ -4,11 +4,14 @@
 #include <QObject>
 #include "Imports.h"
 
+class QFile;
+
 class MemoryPage : public QObject
 {
     Q_OBJECT
 public:
     explicit MemoryPage(duint parBase, duint parSize, QObject* parent = 0);
+    ~MemoryPage();
 
     bool read(void* parDest, duint parRVA, duint parSize) const;
     bool read(byte_t* parDest, duint parRVA, duint parSize) const;
@@ -22,6 +25,9 @@ public:
 private:
     duint mBase;
     duint mSize;
+
+    QFile *mFile;
+    duint mMapFile;
 };
 
 #endif // MEMORYPAGE_H

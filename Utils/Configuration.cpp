@@ -507,8 +507,8 @@ void Configuration::writeShortcuts()
 
 const QColor Configuration::getColor(const QString id) const
 {
-//    if(Colors.contains(id))
-//        return Colors.constFind(id).value();
+    if(Colors.contains(id))
+        return Colors.constFind(id).value();
 //    QMessageBox msg(QMessageBox::Warning, "NOT FOUND IN CONFIG!", id);
 //    msg.setWindowIcon(QIcon(":/icons/images/compile-warning.png"));
 //    msg.setWindowFlags(msg.windowFlags() & (~Qt::WindowContextHelpButtonHint));

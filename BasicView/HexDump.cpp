@@ -1,7 +1,6 @@
 #include "HexDump.h"
 #include <sstream>
 #include "Configuration.h"
-//#include "Bridge.h"
 
 HexDump::HexDump(QWidget* parent) : AbstractTableView(parent)
 {
@@ -38,6 +37,7 @@ void HexDump::updateColors()
     backgroundColor = ConfigColor("HexDumpBackgroundColor");
     textColor = ConfigColor("HexDumpTextColor");
     selectionColor = ConfigColor("HexDumpSelectionColor");
+
     reloadData();
 }
 
@@ -51,12 +51,14 @@ void HexDump::printDumpAt(dsint parVA, bool select, bool repaint, bool updateTab
 //    dsint wBase = DbgMemFindBaseAddr(parVA, 0); //get memory base
 //    dsint wSize = DbgMemGetPageSize(wBase); //get page size
     // TODO
-    dsint wBase = 0; //get memory base
-    dsint wSize = 0; //get page size
+
+    dsint wBase = parVA; //get memory base
+    dsint wSize = mMemPage->getSize(); //get page size
 
     if(!wBase || !wSize)
         return;
-    dsint wRVA = parVA - wBase; //calculate rva
+    //dsint wRVA = parVA - wBase; //calculate rva
+    dsint wRVA = wBase;
     int wBytePerRowCount = getBytePerRowCount(); //get the number of bytes per row
     dsint wRowCount;
 
@@ -77,7 +79,7 @@ void HexDump::printDumpAt(dsint parVA, bool select, bool repaint, bool updateTab
 
     if(updateTableOffset)
     {
-        setTableOffset(-1); //make sure the requested address is always first
+        //setTableOffset(-1); //make sure the requested address is always first
         setTableOffset((wRVA + mByteOffset) / wBytePerRowCount); //change the displayed offset
     }
 

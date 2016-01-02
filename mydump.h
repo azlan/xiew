@@ -24,15 +24,18 @@ enum ViewEnum_t
     ViewAddress
 };
 
+class QFile;
+
 class MyDump : public HexDump
 {
     Q_OBJECT
 public:
     explicit MyDump(QWidget* parent = 0);
+    ~MyDump();
     QString paintContent(QPainter* painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h);
-
-
     void hexAsciiSlot();
+
+
 };
 
 #endif // MYDUMP_H

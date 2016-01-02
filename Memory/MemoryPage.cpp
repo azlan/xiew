@@ -1,21 +1,31 @@
+#include <QFile>
 #include "MemoryPage.h"
 
 MemoryPage::MemoryPage(duint parBase, duint parSize, QObject* parent) : QObject(parent), mBase(0), mSize(0)
 {
     Q_UNUSED(parBase);
     Q_UNUSED(parSize);
+    mFile = new QFile("c:\\test\\test.exe");
+    mFile->open(QIODevice::ReadOnly);
+    mMapFile = reinterpret_cast<duint>(mFile->map(0,mFile->size()));
+    setAttributes((mMapFile), mFile->size());
+}
+
+MemoryPage::~MemoryPage()
+{
+    mFile->close();
+    delete mFile;
 }
 
 bool MemoryPage::read(void* parDest, duint parRVA, duint parSize) const
 {
-    //return DbgMemRead(mBase + parRVA, reinterpret_cast<unsigned char*>(parDest), parSize);
-    return false;
+	std::memcpy(parDest, reinterpret_cast<void*>(parRVA + mMapFile), parSize);
+    return true;
 }
 
 bool MemoryPage::read(byte_t* parDest, duint parRVA, duint parSize) const
 {
-    //return read(reinterpret_cast<void*>(parDest), parRVA, parSize);
-    return false;
+    return read(reinterpret_cast<void*>(parDest), parRVA, parSize);
 }
 
 bool MemoryPage::write(const void* parDest, duint parRVA, duint parSize)

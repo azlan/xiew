@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     mMyDump = new MyDump();
     ui->verticalLayout->addWidget(mMyDump);
-    mMyDump->hexAsciiSlot();
 }
 
 MainWindow::~MainWindow()
