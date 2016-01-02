@@ -56,3 +56,21 @@ INCLUDEPATH += \
     Utils \
     capstone_wrapper \
     capstone\\include
+
+##
+## Libraries
+##
+LIBS += -luser32
+
+!contains(QMAKE_HOST.arch, x86_64) {
+    # Windows x86 (32bit) specific build
+#capstone\msvc\Debug\capstone.lib
+    LIBS += -L"$$PWD/capstone/msvc/Release/" -lcapstone
+    #LIBS += -L"$$PWD/libs/" -lcapstone_x86
+#    LIBS += -L"$$PWD/Src/ThirdPartyLibs/snowman/" -lsnowman_x86
+
+} else {
+    # Windows x64 (64bit) specific build
+    LIBS += -L"$$PWD/libs/" -lcapstone_x64
+#    LIBS += -L"$$PWD/Src/ThirdPartyLibs/snowman/" -lsnowman_x64
+}

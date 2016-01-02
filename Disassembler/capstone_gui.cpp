@@ -2,6 +2,11 @@
 #include "Configuration.h"
 #include "StringUtil.h"
 
+// TODO
+bool DbgMemIsValidReadPtr(duint addr){
+    return true;
+}
+
 CapstoneTokenizer::CapstoneTokenizer(int maxModuleLength)
     : _maxModuleLength(maxModuleLength),
       _success(false)
@@ -225,37 +230,37 @@ void CapstoneTokenizer::addMemoryOperator(char operatorText)
 QString CapstoneTokenizer::printValue(const TokenValue & value, bool expandModule, int maxModuleLength) const
 {
     QString labelText;
-    char label_[MAX_LABEL_SIZE] = "";
-    char module_[MAX_MODULE_SIZE] = "";
+//    char label_[MAX_LABEL_SIZE] = "";
+//    char module_[MAX_MODULE_SIZE] = "";
     QString moduleText;
     duint addr = value.value;
-    bool bHasLabel = DbgGetLabelAt(addr, SEG_DEFAULT, label_);
-    if(!bHasLabel) //handle function+offset
-    {
-        duint start;
-        if(DbgFunctionGet(addr, &start, nullptr) && DbgGetLabelAt(start, SEG_DEFAULT, label_))
-        {
-            labelText = QString("%1+%2").arg(label_).arg(ToHexString(addr - start));
-            bHasLabel = true;
-        }
-    }
-    else
-        labelText = QString(label_);
-    bool bHasModule = (expandModule && DbgGetModuleAt(addr, module_) && !QString(labelText).startsWith("JMP.&"));
-    moduleText = QString(module_);
-    if(maxModuleLength != -1)
-        moduleText.truncate(maxModuleLength);
-    if(moduleText.length())
-        moduleText += ".";
+//    bool bHasLabel = DbgGetLabelAt(addr, SEG_DEFAULT, label_);
+//    if(!bHasLabel) //handle function+offset
+//    {
+//        duint start;
+//        if(DbgFunctionGet(addr, &start, nullptr) && DbgGetLabelAt(start, SEG_DEFAULT, label_))
+//        {
+//            labelText = QString("%1+%2").arg(label_).arg(ToHexString(addr - start));
+//            bHasLabel = true;
+//        }
+//    }
+//    else
+//        labelText = QString(label_);
+//    bool bHasModule = (expandModule && DbgGetModuleAt(addr, module_) && !QString(labelText).startsWith("JMP.&"));
+//    moduleText = QString(module_);
+//    if(maxModuleLength != -1)
+//        moduleText.truncate(maxModuleLength);
+//    if(moduleText.length())
+//        moduleText += ".";
     QString addrText = ToHexString(addr);
     QString finalText;
-    if(bHasLabel && bHasModule)  //<module.label>
-        finalText = QString("<%1%2>").arg(moduleText).arg(labelText);
-    else if(bHasModule)  //module.addr
-        finalText = QString("%1%2").arg(moduleText).arg(addrText);
-    else if(bHasLabel)  //<label>
-        finalText = QString("<%1>").arg(labelText);
-    else
+//    if(bHasLabel && bHasModule)  //<module.label>
+//        finalText = QString("<%1%2>").arg(moduleText).arg(labelText);
+//    else if(bHasModule)  //module.addr
+//        finalText = QString("%1%2").arg(moduleText).arg(addrText);
+//    else if(bHasLabel)  //<label>
+//        finalText = QString("<%1>").arg(labelText);
+//    else
         finalText = addrText;
     return finalText;
 }
@@ -442,6 +447,7 @@ bool CapstoneTokenizer::tokenizeMemOperand(const cs_x86_op & op)
     {
         duint addr = _cp.Address() + duint(mem.disp) + _cp.Size();
         TokenValue value = TokenValue(op.size, addr);
+        // TODO
         auto displacementType = DbgMemIsValidReadPtr(addr) ? TokenType::Address : TokenType::Value;
         addToken(displacementType, printValue(value, false, _maxModuleLength), value);
     }

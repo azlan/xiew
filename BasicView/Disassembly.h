@@ -102,7 +102,7 @@ signals:
 
 public slots:
     void disassembleAt(dsint parVA, dsint parCIP);
-    void debugStateChangedSlot(DBGSTATE state);
+    //void debugStateChangedSlot(DBGSTATE state);
 
 private:
     enum GuiState_t {NoState, MultiRowsSelectionState};
