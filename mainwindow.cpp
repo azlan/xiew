@@ -3,6 +3,7 @@
 #include "mydump.h"
 
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     mMyDump = new MyDump();
     ui->verticalLayout->addWidget(mMyDump);
+    mMyDump->hexAsciiSlot();
 }
 
 MainWindow::~MainWindow()

@@ -1,12 +1,48 @@
 #include "mydump.h"
 
+#define MAX_LABEL_SIZE 256
+#define MAX_MODULE_SIZE 256
+
 MyDump::MyDump( QWidget* parent) : HexDump(parent)
 {
 
 }
 
-#define MAX_LABEL_SIZE 256
-#define MAX_MODULE_SIZE 256
+
+
+void MyDump::hexAsciiSlot()
+{
+    Config()->setUint("HexDump", "DefaultView", (duint)ViewHexAscii);
+    int charwidth = getCharWidth();
+    ColumnDescriptor_t wColDesc;
+    DataDescriptor_t dDesc;
+
+    wColDesc.isData = true; //hex byte
+    wColDesc.itemCount = 16;
+    wColDesc.separator = 4;
+    dDesc.itemSize = Byte;
+    dDesc.byteMode = HexByte;
+    wColDesc.data = dDesc;
+    appendResetDescriptor(8 + charwidth * 47, "Hex", false, wColDesc);
+
+    wColDesc.isData = true; //ascii byte
+    wColDesc.itemCount = 16;
+    wColDesc.separator = 0;
+    dDesc.itemSize = Byte;
+    dDesc.byteMode = AsciiByte;
+    wColDesc.data = dDesc;
+    appendDescriptor(8 + charwidth * 16, "ASCII", false, wColDesc);
+
+    wColDesc.isData = false; //empty column
+    wColDesc.itemCount = 0;
+    wColDesc.separator = 0;
+    dDesc.itemSize = Byte;
+    dDesc.byteMode = AsciiByte;
+    wColDesc.data = dDesc;
+    appendDescriptor(0, "", false, wColDesc);
+
+    reloadData();
+}
 
 QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)
 {
@@ -81,7 +117,7 @@ QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, in
         duint data = 0;
         dsint wRva = (rowBase + rowOffset) * getBytePerRowCount() - mByteOffset;
         //TODO
-        //mMemPage->read((byte_t*)&data, wRva, sizeof(duint));
+        mMemPage->read((byte_t*)&data, wRva, sizeof(duint));
         char modname[MAX_MODULE_SIZE] = "";
 //        if(!DbgGetModuleAt(data, modname))
 //            modname[0] = '\0';
