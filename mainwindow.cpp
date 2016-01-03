@@ -67,7 +67,7 @@ void MainWindow::keyPressSlot(int key)
         return;
     }
 
-    if (key ==  Qt::Key_Space  )
+    if (key ==  Qt::Key_Tab  )
     {
         mMyDump->mMemPage->setAttributes((duint)files[1]->getBase(),files[1]->getSize());
         mMyDump->printDumpAt((dsint)files[1]->getBase());

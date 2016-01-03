@@ -12,6 +12,7 @@ enum ViewEnum_t
 };
 
 class QFile;
+class QEvent;
 
 class MyDump : public HexDump
 {
@@ -25,6 +26,7 @@ public:
 
 private:
     void keyPressEvent(QKeyEvent* e);
+    bool event(QEvent * event);
 
 signals:
     void keyPressSignal(int key);

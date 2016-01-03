@@ -55,11 +55,26 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     emit keyPressSignal(key);
 }
 
+bool MyDump::event(QEvent *event)
+{
+    if (event->type()==QEvent::KeyPress )
+    {
+        QKeyEvent *k = (QKeyEvent *)event;
+        if (k->key() == Qt::Key_Tab)
+        {
+            emit keyPressSignal(Qt::Key_Tab);
+            return true;
+        }
+    }
+    QAbstractScrollArea::event(event);
+    return true;
+}
+
 QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)
 {
     // Reset byte offset when base address is reached
     if(rowBase == 0 && mByteOffset != 0)
-        printDumpAt(mMemPage->getBase(), false, false);
+    printDumpAt(mMemPage->getBase(), false, false);
 
     QString wStr = "";
     if(!col) //address

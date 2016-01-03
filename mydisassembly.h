@@ -14,6 +14,7 @@ public:
 private:
     void keyPressEvent(QKeyEvent* e);
 
+    bool event(QEvent *event);
 signals:
     void keyPressSignal(int key);
 
