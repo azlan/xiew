@@ -5,21 +5,15 @@ MemoryPage::MemoryPage(duint parBase, duint parSize, QObject* parent) : QObject(
 {
     Q_UNUSED(parBase);
     Q_UNUSED(parSize);
-    mFile = new QFile("c:\\test\\test.exe");
-    mFile->open(QIODevice::ReadOnly);
-    mMapFile = reinterpret_cast<duint>(mFile->map(0,mFile->size()));
-    setAttributes((mMapFile), mFile->size());
 }
 
 MemoryPage::~MemoryPage()
 {
-    mFile->close();
-    delete mFile;
 }
 
 bool MemoryPage::read(void* parDest, duint parRVA, duint parSize) const
 {
-	std::memcpy(parDest, reinterpret_cast<void*>(parRVA + mMapFile), parSize);
+    std::memcpy(parDest, reinterpret_cast<void*>(parRVA + mBase), parSize);
     return true;
 }
 

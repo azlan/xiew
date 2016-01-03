@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     capstone_wrapper/capstone_wrapper.cpp \
     Disassembler/capstone_gui.cpp \
     Disassembler/QBeaEngine.cpp \
-    mydisassembly.cpp
+    mydisassembly.cpp \
+    GleeBug/Static.Pe.cpp \
+    Xiew/xfile.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -42,7 +44,12 @@ HEADERS  += mainwindow.h \
     capstone_wrapper/capstone_wrapper.h \
     Disassembler/capstone_gui.h \
     Disassembler/QBeaEngine.h \
-    mydisassembly.h
+    mydisassembly.h \
+    GleeBug/Static.Global.h \
+    GleeBug/Static.Pe.h \
+    GleeBug/Static.Region.h \
+    Xiew/xfile.h \
+    GleeBug/GleeBug.h
 
 FORMS    += mainwindow.ui
 
@@ -57,7 +64,9 @@ INCLUDEPATH += \
     Global \
     Utils \
     capstone_wrapper \
-    capstone\\include
+    capstone\\include \
+    GleeBug \
+    Xiew
 
 ##
 ## Libraries

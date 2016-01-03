@@ -4,8 +4,6 @@
 #include <QObject>
 #include "Imports.h"
 
-class QFile;
-
 class MemoryPage : public QObject
 {
     Q_OBJECT
@@ -25,9 +23,6 @@ public:
 private:
     duint mBase;
     duint mSize;
-
-    QFile *mFile;
-    duint mMapFile;
 };
 
 #endif // MEMORYPAGE_H

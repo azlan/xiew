@@ -186,6 +186,8 @@ protected:
     duint mRvaDisplayBase;
     dsint mRvaDisplayPageBase;
     bool mHighlightingMode;
+
+public:
     MemoryPage* mMemPage;
 };
 

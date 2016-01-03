@@ -155,8 +155,10 @@ private:
 
     GuiState_t mGuiState;
 
+public:
+        MemoryPage* mMemPage;
+
 protected:
-    MemoryPage* mMemPage;
     int mByteOffset;
     QList<ColumnDescriptor_t> mDescriptor;
     int mForceColumn;

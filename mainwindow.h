@@ -9,6 +9,7 @@ class MainWindow;
 }
 class MyDump;
 class MyDisassembly;
+class XFile;
 
 class MainWindow : public QMainWindow
 {
@@ -24,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     MyDump *mMyDump;
     MyDisassembly * mMyDisassembly;
+    QVector<XFile *> files;
 
 public slots:
     void keyPressSlot(int key);
