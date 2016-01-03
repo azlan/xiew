@@ -1,4 +1,3 @@
-#include <QFile>
 #include "mydump.h"
 
 #define MAX_LABEL_SIZE 256
@@ -47,6 +46,13 @@ void MyDump::hexAsciiSlot()
     appendDescriptor(0, "", false, wColDesc);
 
     reloadData();
+}
+
+void MyDump::keyPressEvent(QKeyEvent *event)
+{
+    int key = event->key();
+    HexDump::keyPressEvent(event);
+    emit keyPressSignal(key);
 }
 
 QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)

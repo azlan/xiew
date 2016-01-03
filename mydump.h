@@ -9,19 +9,6 @@ enum ViewEnum_t
     ViewHexUnicode,
     ViewTextAscii,
     ViewTextUnicode,
-    ViewIntegerSignedShort,
-    ViewIntegerSignedLong,
-    ViewIntegerSignedLongLong,
-    ViewIntegerUnsignedShort,
-    ViewIntegerUnsignedLong,
-    ViewIntegerUnsignedLongLong,
-    ViewIntegerHexShort,
-    ViewIntegerHexLong,
-    ViewIntegerHexLongLong,
-    ViewFloatFloat,
-    ViewFloatDouble,
-    ViewFloatLongDouble,
-    ViewAddress
 };
 
 class QFile;
@@ -29,12 +16,18 @@ class QFile;
 class MyDump : public HexDump
 {
     Q_OBJECT
+
 public:
     explicit MyDump(QWidget* parent = 0);
     ~MyDump();
     QString paintContent(QPainter* painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h);
     void hexAsciiSlot();
 
+private:
+    void keyPressEvent(QKeyEvent* e);
+
+signals:
+    void keyPressSignal(int key);
 
 };
 
