@@ -16,6 +16,7 @@ public:
     PIMAGE_SECTION_HEADER mSectionHeader;
     void * getBase();
     int getSize();
+
     uint mCurrentOffset;
     bool mIsPE;
 

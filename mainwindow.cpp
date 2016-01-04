@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
+    connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(offsetSlot(int)));
 
     mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
     mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
@@ -47,9 +48,11 @@ void MainWindow::renderView()
     auto file = mFileInstance[mCurrentFile];
     auto base = file->getBase();
     auto size = file->getSize();
+    auto offset = file->mCurrentOffset;
 
     mMyDump->mMemPage->setAttributes((duint)base, size);
     mMyDump->printDumpAt((duint)base);
+    mMyDump->setSingleSelection(offset);
 
     mMyDisassembly->mMemPage->setAttributes((duint)base, size);
     mMyDisassembly->setRowCount(size);
@@ -59,6 +62,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     int key = event->key();
     keyPressSlot(key);
+}
+
+void MainWindow::offsetSlot(int offset)
+{
+    this->setWindowTitle(QString("xiew - %1").arg(offset, 8, 16, QChar('0')));
 }
 
 void MainWindow::keyPressSlot(int key)

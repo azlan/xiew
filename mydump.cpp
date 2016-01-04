@@ -51,9 +51,63 @@ void MyDump::hexAsciiSlot()
 
 void MyDump::keyPressEvent(QKeyEvent *event)
 {
-    int key = event->key();
-    HexDump::keyPressEvent(event);
-    emit keyPressSignal(key);
+    const auto wKey = event->key();
+    auto  wOffset = getInitialSelection();
+    const auto bytePerRow = getBytePerRowCount();
+
+    if(wKey == Qt::Key_Right)
+    {
+        if (++wOffset >= mMemPage->getSize())
+            wOffset = mMemPage->getSize()-1;
+        setSingleSelection(wOffset);
+    }
+    else if(wKey == Qt::Key_Left)
+    {
+        if (wOffset != 0)
+        {
+            setSingleSelection(--wOffset);
+        }
+    }
+    else if(wKey == Qt::Key_Up)
+    {
+        // TODO: scroll up
+        wOffset -= bytePerRow;
+
+        if (wOffset< 0)
+            wOffset = 0;
+        setSingleSelection(wOffset);
+
+    }
+    else if(wKey == Qt::Key_Down)
+    {
+        wOffset += bytePerRow;
+        if (wOffset > mMemPage->getSize())
+            wOffset = mMemPage->getSize()-1;
+
+        setSingleSelection(wOffset);
+
+        auto tableOffset = getTableOffset();
+        auto viewableRow = getViewableRowsCount() - 1; // the hack is real
+
+        auto lastRowOffset = (tableOffset*bytePerRow) + (viewableRow*bytePerRow);
+
+        if (wOffset > lastRowOffset)
+            verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+    }
+    else if(wKey == Qt::Key_PageUp)
+    {
+        verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepSub);
+    }
+    else if(wKey == Qt::Key_PageDown)
+    {
+        verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepAdd);
+    }
+    else if(wKey == Qt::Key_Return || wKey == Qt::Key_Enter) //user pressed enter
+        emit enterPressedSignal();
+
+    emit currentOffsetSignal(wOffset);
+    this->viewport()->update();
+    emit keyPressSignal(wKey);
 }
 
 bool MyDump::event(QEvent *event)
@@ -75,7 +129,7 @@ QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, in
 {
     // Reset byte offset when base address is reached
     if(rowBase == 0 && mByteOffset != 0)
-    printDumpAt(mMemPage->getBase(), false, false);
+        printDumpAt(mMemPage->getBase(), false, false);
 
     QString wStr = "";
     if(!col) //address

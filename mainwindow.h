@@ -27,11 +27,14 @@ private:
     std::vector<XFile *> mFileInstance;
     int mCurrentFile;
 
+
     void renderView();
     void keyPressEvent(QKeyEvent* e);
 
 public slots:
     void keyPressSlot(int key);
+private slots:
+    void offsetSlot(int offset);
 };
 
 #endif // MAINWINDOW_H
