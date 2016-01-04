@@ -56,6 +56,7 @@ void MainWindow::renderView()
 
     mMyDisassembly->mMemPage->setAttributes((duint)base, size);
     mMyDisassembly->setRowCount(size);
+    mMyDisassembly->reloadData();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
