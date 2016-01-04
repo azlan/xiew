@@ -18,28 +18,41 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->layoutMain->addWidget(mMyDisassembly);
     mMyDisassembly->hide();
 
-   mMyDump->setFocus();
+    mMyDump->setFocus();
+    this->resize(mMyDump->width(),600);
 
-   this->resize(mMyDump->width(),600);
-   connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
-   connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
+    connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
+    connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
 
-    XFile *file1 = new XFile("C:\\test\\test.exe");
-    XFile *file2 = new XFile("C:\\test\\test.dll");
+    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
+    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
+    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
-    mMyDump->mMemPage->setAttributes((duint)file1->getBase(),file1->getSize());
-    mMyDump->printDumpAt((dsint)file1->getBase());
-
-    mMyDisassembly->mMemPage->setAttributes((duint)file1->getBase(),file1->getSize());
-    mMyDisassembly->setRowCount(file1->getSize());
-
-    files.append(file1);
-    files.append(file2);
+    mCurrentFile = 0;
+    renderView();
 }
 
 MainWindow::~MainWindow()
 {
+    for(auto file : mFileInstance)
+    {
+        delete file;
+    }
     delete ui;
+}
+
+void MainWindow::renderView()
+{
+
+    auto file = mFileInstance[mCurrentFile];
+    auto base = file->getBase();
+    auto size = file->getSize();
+
+    mMyDump->mMemPage->setAttributes((duint)base, size);
+    mMyDump->printDumpAt((duint)base);
+
+    mMyDisassembly->mMemPage->setAttributes((duint)base, size);
+    mMyDisassembly->setRowCount(size);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -67,9 +80,25 @@ void MainWindow::keyPressSlot(int key)
         return;
     }
 
+    // Switching between loaded files
     if (key ==  Qt::Key_Tab  )
     {
-        mMyDump->mMemPage->setAttributes((duint)files[1]->getBase(),files[1]->getSize());
-        mMyDump->printDumpAt((dsint)files[1]->getBase());
+        mCurrentFile;
+
+        if (++mCurrentFile == mFileInstance.size())
+        {
+            // reset the cycle
+            mCurrentFile = 0;
+        }
+
+        renderView();
+        return;
+    }
+
+    // Escape to quit
+    if (key ==  Qt::Key_Escape  )
+    {
+        this->close();
+        return;
     }
 }

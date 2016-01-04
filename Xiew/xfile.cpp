@@ -1,28 +1,38 @@
 #include "xfile.h"
+#include "Static.Pe.h"
 
-#include <QString>
+
+//#include <QString>
 #include <QMessageBox>
 
+using namespace GleeBug;
 
-XFile::XFile(const QString fileName)
+XFile::XFile(const QString fileName):
+    mFile(fileName),
+    mIsPE(false)
 {
-    mFile = new QFile(fileName);
-    mFile->open(QIODevice::ReadOnly);
-    mMapFile = mFile->map(0,mFile->size());
+    //mFile = new QFile(fileName);
+    mFile.open(QIODevice::ReadOnly);
 
-    parsePeFile();
+    if (mFile.isOpen())
+    {
+        mMapFile = mFile.map(0,getSize());
+        mIsPE = parsePeFile();
+    }
+    else
+    {
+        QMessageBox::critical(0, "Error", QString("XFile::XFile failed (%1)!\n").arg(mFile.errorString()));
+    }
 }
 
 XFile::~XFile()
 {
- mFile->close();
- delete mFile;
 }
 
 bool XFile::parsePeFile()
 {
     auto result = false;
-    Pe pe(mMapFile,mFile->size());
+    Pe pe(mMapFile,mFile.size());
     auto parseError = pe.ParseHeaders();
     if (parseError == Pe::ErrorOk)
     {
@@ -42,8 +52,18 @@ bool XFile::parsePeFile()
     }
     else
     {
-        QMessageBox::critical(0, "Error", QString("Pe::ParseHeaders failed (%1)!\n").arg(parseError));
+        //QMessageBox::critical(0, "Error", QString("Pe::ParseHeaders failed (%1)!\n").arg(parseError));
     }
 
     return result;
+}
+
+void *XFile::getBase()
+{
+    return mMapFile;
+}
+
+int XFile::getSize()
+{
+    return mFile.size();
 }

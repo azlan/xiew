@@ -7,6 +7,7 @@
 namespace Ui {
 class MainWindow;
 }
+
 class MyDump;
 class MyDisassembly;
 class XFile;
@@ -19,13 +20,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void keyPressEvent(QKeyEvent* e);
-
 private:
     Ui::MainWindow *ui;
     MyDump *mMyDump;
     MyDisassembly * mMyDisassembly;
-    QVector<XFile *> files;
+    std::vector<XFile *> mFileInstance;
+    int mCurrentFile;
+
+    void renderView();
+    void keyPressEvent(QKeyEvent* e);
 
 public slots:
     void keyPressSlot(int key);

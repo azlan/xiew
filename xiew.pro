@@ -76,8 +76,8 @@ LIBS += -luser32
 !contains(QMAKE_HOST.arch, x86_64) {
     # Windows x86 (32bit) specific build
 #capstone\msvc\Debug\capstone.lib
-    #LIBS += -L"$$PWD/capstone/msvc/Release/" -lcapstone
-    LIBS += -L"$$PWD/libs/" -lcapstone_x86
+    LIBS += -L"$$PWD/capstone/msvc/Release/" -lcapstone_dll
+    #LIBS += -L"$$PWD/libs/" -lcapstone_x86
 #    LIBS += -L"$$PWD/Src/ThirdPartyLibs/snowman/" -lsnowman_x86
 
 } else {

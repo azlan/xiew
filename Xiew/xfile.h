@@ -1,13 +1,8 @@
-#ifndef FILE_H
-#define FILE_H
+#ifndef XFILE_H
+#define XFILE_H
 
-#include "Static.Pe.h"
 #include <QFile>
-
-using namespace GleeBug;
-
-class QString;
-
+#include <windows.h>
 
 class XFile
 {
@@ -19,19 +14,15 @@ public:
     PIMAGE_FILE_HEADER mFileHeader;
     PIMAGE_OPTIONAL_HEADER mOptionalHeader;
     PIMAGE_SECTION_HEADER mSectionHeader;
-    void * getBase() { return mMapFile; };
-    int getSize() { return mFile->size(); };
-
+    void * getBase();
+    int getSize();
+    uint mCurrentOffset;
+    bool mIsPE;
 
 private:
-//    bool open();
-    wchar_t *mFileName;
-
-    std::vector<uint8> mDiskData;
-
-     QFile *mFile;
-     uchar *mMapFile;
+    QFile mFile;
+    uchar *mMapFile;
 
 };
 
-#endif // FILE_H
+#endif // XFILE_H
