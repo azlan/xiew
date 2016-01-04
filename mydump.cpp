@@ -7,6 +7,7 @@ MyDump::MyDump( QWidget* parent) : HexDump(parent)
 {
     hexAsciiSlot();
     printDumpAt(mMemPage->getBase());
+    setShowHeader(false); //hide header
 }
 
 MyDump::~MyDump()

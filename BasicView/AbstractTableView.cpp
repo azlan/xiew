@@ -8,7 +8,7 @@ AbstractTableView::AbstractTableView(QWidget* parent) : QAbstractScrollArea(pare
     mTableOffset = 0;
     mPrevTableOffset = mTableOffset + 1;
     Header_t data;
-    data.isVisible = false;
+    data.isVisible = true;
     data.height = 20;
     data.activeButtonIndex = -1;
     mHeader = data;
