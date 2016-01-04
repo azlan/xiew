@@ -1,0 +1,8 @@
+# VisualStudio
+Debug/
+Release/
+ipch/
+*.sdf
+*.opensdf
+*.suo
+*.user
