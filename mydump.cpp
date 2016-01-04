@@ -81,7 +81,8 @@ QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, in
     {
         char label[MAX_LABEL_SIZE] = "";
         QString addrText = "";
-        dsint cur_addr = rvaToVa((rowBase + rowOffset) * getBytePerRowCount() - mByteOffset);
+        //dsint cur_addr = rvaToVa((rowBase + rowOffset) * getBytePerRowCount() - mByteOffset);
+        dsint cur_addr = ((rowBase + rowOffset) * getBytePerRowCount() - mByteOffset);
         if(mRvaDisplayEnabled) //RVA display
         {
             dsint rva = cur_addr - mRvaDisplayBase;

@@ -137,9 +137,12 @@ QString Disassembly::paintContent(QPainter* painter, dsint rowBase, int rowOffse
     {
     case 0: // Draw address (+ label)
     {
-        char label[MAX_LABEL_SIZE] = "";
-        dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
-        QString addrText = getAddrText(cur_addr, label);
+        //char label[MAX_LABEL_SIZE] = "";
+        //dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
+        dsint cur_addr = (mInstBuffer.at(rowOffset).rva);
+        //QString addrText = getAddrText(cur_addr, label);
+        QString addrText = QString("%1").arg(cur_addr, 8, 16, QChar('0'));
+
 //        BPXTYPE bpxtype = DbgGetBpxTypeAt(cur_addr);
 //        bool isbookmark = DbgGetBookmarkAt(cur_addr);
 //        if(mInstBuffer.at(rowOffset).rva == mCipRva && !mIsRunning) //cip + not running
@@ -321,7 +324,7 @@ QString Disassembly::paintContent(QPainter* painter, dsint rowBase, int rowOffse
     case 1: //draw bytes (TODO: some spaces between bytes)
     {
         //draw functions
-        dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
+        //dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
         Function_t funcType;
 //        FUNCTYPE funcFirst = DbgGetFunctionTypeAt(cur_addr);
 //        FUNCTYPE funcLast = DbgGetFunctionTypeAt(cur_addr + mInstBuffer.at(rowOffset).length - 1);
@@ -384,12 +387,12 @@ QString Disassembly::paintContent(QPainter* painter, dsint rowBase, int rowOffse
 
     case 2: //draw disassembly (with colours needed)
     {
-        dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
+        //dsint cur_addr = rvaToVa(mInstBuffer.at(rowOffset).rva);
         int loopsize = 0;
-        int depth = 0;
+        //int depth = 0;
 
-        while(1) //paint all loop depths
-        {
+//        while(1) //paint all loop depths
+//        {
 //            LOOPTYPE loopType = DbgGetLoopTypeAt(cur_addr, depth);
 //            if(loopType == LOOP_NONE)
 //                break;
@@ -413,8 +416,7 @@ QString Disassembly::paintContent(QPainter* painter, dsint rowBase, int rowOffse
 //            }
 //            loopsize += paintFunctionGraphic(painter, x + loopsize, y, funcType, true);
 //            depth++;
-            break;
-        }
+//        }
 
         QList<RichTextPainter::CustomRichText_t> richText;
 
