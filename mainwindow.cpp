@@ -25,9 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(offsetSlot(int)));
 
-    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
-    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
-    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
+    mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
     mCurrentFile = 0;
     renderView();

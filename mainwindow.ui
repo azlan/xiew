@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>516</height>
+    <width>673</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,13 +23,22 @@
       <property name="spacing">
        <number>0</number>
       </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
       <item>
-       <widget class="QPushButton" name="pushButtonF1">
+       <widget class="QToolButton" name="toolButtonF1">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>1 Help</string>
@@ -37,12 +46,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF2">
+       <widget class="QToolButton" name="toolButtonF2">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>2 PutBlk</string>
@@ -50,12 +65,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF3">
+       <widget class="QToolButton" name="toolButtonF3">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>3 Edit</string>
@@ -63,12 +84,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF4">
+       <widget class="QToolButton" name="toolButtonF4">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>4 Mode</string>
@@ -76,12 +103,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF5">
+       <widget class="QToolButton" name="toolButtonF5">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>5 Goto</string>
@@ -89,12 +122,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF6">
+       <widget class="QToolButton" name="toolButtonF6">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>6 DatRef</string>
@@ -102,12 +141,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF7">
+       <widget class="QToolButton" name="toolButtonF7">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>7 Search</string>
@@ -115,12 +160,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF8">
+       <widget class="QToolButton" name="toolButtonF8">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>8 Header</string>
@@ -128,12 +179,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF9">
+       <widget class="QToolButton" name="toolButtonF9">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>9 File</string>
@@ -141,12 +198,18 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonF10">
+       <widget class="QToolButton" name="toolButtonF10">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>0</height>
+         </size>
         </property>
         <property name="text">
          <string>10 Quit</string>
@@ -162,7 +225,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>770</width>
+     <width>673</width>
      <height>21</height>
     </rect>
    </property>
@@ -175,20 +238,24 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>pushButtonF1</tabstop>
-  <tabstop>pushButtonF2</tabstop>
-  <tabstop>pushButtonF3</tabstop>
-  <tabstop>pushButtonF4</tabstop>
-  <tabstop>pushButtonF5</tabstop>
-  <tabstop>pushButtonF6</tabstop>
-  <tabstop>pushButtonF7</tabstop>
-  <tabstop>pushButtonF8</tabstop>
-  <tabstop>pushButtonF9</tabstop>
-  <tabstop>pushButtonF10</tabstop>
+  <tabstop>toolButtonF1</tabstop>
+  <tabstop>toolButtonF2</tabstop>
+  <tabstop>toolButtonF3</tabstop>
+  <tabstop>toolButtonF4</tabstop>
+  <tabstop>toolButtonF5</tabstop>
+  <tabstop>toolButtonF6</tabstop>
+  <tabstop>toolButtonF7</tabstop>
+  <tabstop>toolButtonF8</tabstop>
+  <tabstop>toolButtonF9</tabstop>
+  <tabstop>toolButtonF10</tabstop>
  </tabstops>
  <resources/>
  <connections/>
