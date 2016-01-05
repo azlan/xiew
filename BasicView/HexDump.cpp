@@ -68,6 +68,11 @@ void HexDump::printDumpAt(dsint parVA, bool select, bool repaint, bool updateTab
 
     // Compute row count
     wRowCount = wSize / wBytePerRowCount;
+
+    // Check for unaligned data
+    if (wSize % wBytePerRowCount != 0)
+        ++wRowCount;
+
     wRowCount += mByteOffset > 0 ? 1 : 0;
 
     if(mRvaDisplayEnabled && mMemPage->getBase() != mRvaDisplayPageBase)
