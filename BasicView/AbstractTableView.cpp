@@ -514,10 +514,10 @@ void AbstractTableView::vertSliderActionSlot(int action)
         wDelta = -1;
         break;
     case QAbstractSlider::SliderPageStepAdd:
-        wDelta = 30;
+        wDelta = getViewableRowsCount();
         break;
     case QAbstractSlider::SliderPageStepSub:
-        wDelta = -30;
+        wDelta = -getViewableRowsCount();
         break;
     case QAbstractSlider::SliderToMinimum:
     case QAbstractSlider::SliderToMaximum:
