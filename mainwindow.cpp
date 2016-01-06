@@ -19,7 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mMyDisassembly->hide();
 
     mMyDump->setFocus();
-    this->resize(mMyDump->width(),600);
+    int totalWidth = 0;
+    for(int i = 0; i < mMyDump->getColumnCount(); i++)
+        totalWidth += mMyDump->getColumnWidth(i);
+
+    this->resize(totalWidth+19,600);
 
     connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
