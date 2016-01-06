@@ -52,15 +52,17 @@ void MyDump::hexAsciiSlot()
 void MyDump::keyPressEvent(QKeyEvent *event)
 {
     const auto wKey = event->key();
-    auto  wSelectedOffset = getInitialSelection();
     const auto wBytePerRow = getBytePerRowCount();
     const auto wTotalRowCount = getRowCount();
-    const auto wSize = mMemPage->getBase();
+    const auto wSize = mMemPage->getSize();
+    const auto wViewableRow = getViewableRowsCount() - 1;
+    auto  wSelectedOffset = getInitialSelection();
 
     if(wKey == Qt::Key_Right)
     {
-        if (++wSelectedOffset >= mMemPage->getSize())
-            wSelectedOffset = mMemPage->getSize()-1;
+        if (++wSelectedOffset >= wSize)
+            wSelectedOffset = wSize - 1;
+
         setSingleSelection(wSelectedOffset);
     }
     else if(wKey == Qt::Key_Left)
@@ -72,49 +74,61 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     }
     else if(wKey == Qt::Key_Up)
     {
-        // TODO: scroll up
-        wSelectedOffset -= wBytePerRow;
+        if (wSelectedOffset - wBytePerRow >= 0)
+        {
+            wSelectedOffset -= wBytePerRow;
+            setSingleSelection(wSelectedOffset);
 
-        if (wSelectedOffset< 0)
-            wSelectedOffset = 0;
-        setSingleSelection(wSelectedOffset);
-
+            auto tableOffset = getTableOffset() - 1;
+            auto currentRow = wSelectedOffset / wBytePerRow;
+            if (currentRow == tableOffset)
+                verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
+       }
     }
     else if(wKey == Qt::Key_Down)
     {
         wSelectedOffset += wBytePerRow;
-        if (wSelectedOffset > mMemPage->getSize())
-            wSelectedOffset = mMemPage->getSize()-1;
+        if (wSelectedOffset > wSize)
+            wSelectedOffset = wSize - 1;
 
         setSingleSelection(wSelectedOffset);
 
         auto tableOffset = getTableOffset();
-        auto viewableRow = getViewableRowsCount() - 1; // the hack is real
-
-        auto lastRowOffset = (tableOffset*wBytePerRow) + (viewableRow*wBytePerRow);
+        auto lastRowOffset = (tableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
 
         if (wSelectedOffset > lastRowOffset)
             verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
     }
     else if(wKey == Qt::Key_PageUp)
     {
-        verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepSub);
+        if (wSelectedOffset - (wViewableRow * wBytePerRow) >= 0)
+        {
+            wSelectedOffset -= ((wViewableRow + 1) * wBytePerRow);
+            setSingleSelection(wSelectedOffset);
+
+            auto tableOffset = getTableOffset();
+            auto currentRow = wSelectedOffset / wBytePerRow;
+            if (currentRow < tableOffset)
+                verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepSub);
+       } else
+        {
+            wSelectedOffset = 0;
+            setSingleSelection(wSelectedOffset);
+            setTableOffset(0);
+        }
     }
     else if(wKey == Qt::Key_PageDown)
     {
-        auto tableOffset = getTableOffset();
         auto viewableRow = getViewableRowsCount();
-        auto lastRowOffset = (tableOffset*wBytePerRow) + (viewableRow*wBytePerRow);
-        auto currentRow  = wSelectedOffset / wBytePerRow; //*tableOffset/wBytePerRow) + (viewableRow * wBytePerRow);
+        auto currentRow  = wSelectedOffset / wBytePerRow;
         if (currentRow < wTotalRowCount)
         {
             wSelectedOffset += viewableRow * wBytePerRow;
             if (wSelectedOffset >= wSize)
-                wSelectedOffset = wSize-1;
+                wSelectedOffset = wSize - 1;
 
             setSingleSelection(wSelectedOffset);
             verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepAdd);
-
         }
     }
     else if(wKey == Qt::Key_Return || wKey == Qt::Key_Enter) //user pressed enter
