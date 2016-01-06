@@ -23,11 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
-    connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(offsetSlot(int)));
+    connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
+    connect(mMyDump, SIGNAL(currentTableOffsetSignal(int)), this, SLOT(updateTableOffsetSlot(int)));
+
 
     mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
-//    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
-//    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
+    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
+    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
 //    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
     mCurrentFile = 0;
@@ -50,10 +52,13 @@ void MainWindow::renderView()
     auto base = file->getBase();
     auto size = file->getSize();
     auto offset = file->mCurrentOffset;
+    auto tableOffset = file->mCurrentTableOffset;
 
     mMyDump->mMemPage->setAttributes((duint)base, size);
     mMyDump->printDumpAt((duint)base);
     mMyDump->setSingleSelection(offset);
+    mMyDump->setTableOffset(tableOffset);
+    updateOffsetSlot(offset);
 
     mMyDisassembly->mMemPage->setAttributes((duint)base, size);
     mMyDisassembly->setRowCount(size);
@@ -66,9 +71,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     keyPressSlot(key);
 }
 
-void MainWindow::offsetSlot(int offset)
+void MainWindow::updateOffsetSlot(int offset)
 {
     this->setWindowTitle(QString("xiew - %1").arg(offset, 8, 16, QChar('0')));
+    mFileInstance[mCurrentFile]->mCurrentOffset = offset;
+}
+
+void MainWindow::updateTableOffsetSlot(int offset)
+{
+    mFileInstance[mCurrentFile]->mCurrentTableOffset = offset;
 }
 
 void MainWindow::keyPressSlot(int key)

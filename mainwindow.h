@@ -34,7 +34,8 @@ private:
 public slots:
     void keyPressSlot(int key);
 private slots:
-    void offsetSlot(int offset);
+    void updateOffsetSlot(int offset);
+    void updateTableOffsetSlot(int offset);
 };
 
 #endif // MAINWINDOW_H

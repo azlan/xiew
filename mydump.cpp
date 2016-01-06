@@ -56,6 +56,7 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     const auto wTotalRowCount = getRowCount();
     const auto wSize = mMemPage->getSize();
     const auto wViewableRow = getViewableRowsCount() - 1;
+    const auto wCurrentTableOffset = getTableOffset();
     auto  wSelectedOffset = getInitialSelection();
 
     if(wKey == Qt::Key_Right)
@@ -79,9 +80,8 @@ void MyDump::keyPressEvent(QKeyEvent *event)
             wSelectedOffset -= wBytePerRow;
             setSingleSelection(wSelectedOffset);
 
-            auto tableOffset = getTableOffset() - 1;
             auto currentRow = wSelectedOffset / wBytePerRow;
-            if (currentRow == tableOffset)
+            if (currentRow == (wCurrentTableOffset - 1))
                 verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
        }
     }
@@ -93,8 +93,7 @@ void MyDump::keyPressEvent(QKeyEvent *event)
 
         setSingleSelection(wSelectedOffset);
 
-        auto tableOffset = getTableOffset();
-        auto lastRowOffset = (tableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
+        auto lastRowOffset = (wCurrentTableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
 
         if (wSelectedOffset > lastRowOffset)
             verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
@@ -106,9 +105,8 @@ void MyDump::keyPressEvent(QKeyEvent *event)
             wSelectedOffset -= ((wViewableRow + 1) * wBytePerRow);
             setSingleSelection(wSelectedOffset);
 
-            auto tableOffset = getTableOffset();
             auto currentRow = wSelectedOffset / wBytePerRow;
-            if (currentRow < tableOffset)
+            if (currentRow < wCurrentTableOffset)
                 verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepSub);
        } else
         {
@@ -134,7 +132,9 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     else if(wKey == Qt::Key_Return || wKey == Qt::Key_Enter) //user pressed enter
         emit enterPressedSignal();
 
+
     emit currentOffsetSignal(wSelectedOffset);
+    emit currentTableOffsetSignal(getTableOffset());
     this->viewport()->update();
     emit keyPressSignal(wKey);
 }

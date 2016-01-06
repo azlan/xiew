@@ -10,7 +10,8 @@ using namespace GleeBug;
 XFile::XFile(const QString fileName):
     mFile(fileName),
     mIsPE(false),
-    mCurrentOffset(0)
+    mCurrentOffset(0),
+    mCurrentTableOffset(0)
 {
     //mFile = new QFile(fileName);
     mFile.open(QIODevice::ReadOnly);

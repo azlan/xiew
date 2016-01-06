@@ -31,6 +31,7 @@ private:
 signals:
     void keyPressSignal(int key);
     void currentOffsetSignal(int offset);
+    void currentTableOffsetSignal(int offset);
 
 };
 

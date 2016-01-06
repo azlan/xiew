@@ -18,6 +18,7 @@ public:
     int getSize();
 
     uint mCurrentOffset;
+    uint mCurrentTableOffset;
     bool mIsPE;
 
 private:
