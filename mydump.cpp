@@ -73,7 +73,32 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     const auto wCurrentTableOffset = getTableOffset();
     auto  wSelectedOffset = getInitialSelection();
 
-    if(wKey == Qt::Key_Right)
+    if (event->modifiers() & Qt::ControlModifier)
+    {
+        if(wKey == Qt::Key_Home)
+        {
+
+            setSingleSelection(0);
+            setTableOffset(0);
+        }
+        if(wKey == Qt::Key_End)
+        {
+            auto lastRow = wSize / wBytePerRow - wViewableRow;
+            setSingleSelection(wSize-1);
+            setTableOffset(lastRow);
+        }
+    }
+    else if (wKey == Qt::Key_Home)
+    {
+        wSelectedOffset = wSelectedOffset - (wSelectedOffset % wBytePerRow);
+        setSingleSelection(wSelectedOffset);
+    }
+    else if (wKey == Qt::Key_End)
+    {
+        wSelectedOffset = wSelectedOffset + (wBytePerRow - (wSelectedOffset % wBytePerRow) - 1);
+        setSingleSelection(wSelectedOffset);
+    }
+    else if(wKey == Qt::Key_Right)
     {
         if (++wSelectedOffset >= wSize)
             wSelectedOffset = wSize - 1;

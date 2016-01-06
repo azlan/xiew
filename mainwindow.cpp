@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0; i < mMyDump->getColumnCount(); i++)
         totalWidth += mMyDump->getColumnWidth(i);
 
-    this->resize(totalWidth+19,600);
+    this->resize(totalWidth+19,604);
 
     connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
