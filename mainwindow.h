@@ -26,6 +26,7 @@ private:
     MyDisassembly * mMyDisassembly;
     std::vector<XFile *> mFileInstance;
     int mCurrentFile;
+    bool mDisplayToggle;
 
 
     void renderView();

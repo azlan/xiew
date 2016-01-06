@@ -141,7 +141,6 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     else if(wKey == Qt::Key_Return || wKey == Qt::Key_Enter) //user pressed enter
         emit enterPressedSignal();
 
-
     emit currentOffsetSignal(wSelectedOffset);
     emit currentTableOffsetSignal(getTableOffset());
     this->viewport()->update();

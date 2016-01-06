@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
     connect(mMyDump, SIGNAL(currentTableOffsetSignal(int)), this, SLOT(updateTableOffsetSlot(int)));
 
+    mDisplayToggle = true;
 
     mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
     mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
@@ -54,15 +55,20 @@ void MainWindow::renderView()
     auto offset = file->mCurrentOffset;
     auto tableOffset = file->mCurrentTableOffset;
 
-    mMyDump->mMemPage->setAttributes((duint)base, size);
-    mMyDump->printDumpAt((duint)base);
-    mMyDump->setSingleSelection(offset);
-    mMyDump->setTableOffset(tableOffset);
-    updateOffsetSlot(offset);
-
-    mMyDisassembly->mMemPage->setAttributes((duint)base, size);
-    mMyDisassembly->setRowCount(size);
-    mMyDisassembly->reloadData();
+    if(mDisplayToggle)
+    {
+        mMyDump->mMemPage->setAttributes((duint)base, size);
+        mMyDump->printDumpAt((duint)base);
+        mMyDump->setSingleSelection(offset);
+        mMyDump->setTableOffset(tableOffset);
+        updateOffsetSlot(offset);
+    }
+    else
+    {
+        mMyDisassembly->mMemPage->setAttributes((duint)base, size);
+        mMyDisassembly->setRowCount(size);
+        mMyDisassembly->reloadData();
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -98,6 +104,9 @@ void MainWindow::keyPressSlot(int key)
             mMyDump->setFocus();
             mMyDisassembly->hide();
         }
+
+        mDisplayToggle = !mDisplayToggle;
+        renderView();
         return;
     }
 
