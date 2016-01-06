@@ -27,6 +27,7 @@ private:
     std::vector<XFile *> mFileInstance;
     int mCurrentFile;
     bool mDisplayToggle;
+    bool mSwitchedFromDisassembly;
 
 
     void renderView();

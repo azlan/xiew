@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
     mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
-    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
 //    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
     mCurrentFile = 0;
@@ -65,7 +65,19 @@ void MainWindow::renderView()
         mMyDump->mMemPage->setAttributes((duint)base, size);
         mMyDump->printDumpAt((duint)base);
         mMyDump->setSingleSelection(offset);
-        mMyDump->setTableOffset(tableOffset);
+
+        if (mSwitchedFromDisassembly)
+        {
+            // Recalculate table row
+            tableOffset = offset / mMyDump->getBytePerRowCount();
+            mMyDump->setTableOffset(tableOffset);
+            // Reset state
+            mSwitchedFromDisassembly = false;
+        }
+        else
+        {
+            mMyDump->setTableOffset(tableOffset);
+        }
         updateOffsetSlot(offset);
     }
     else
@@ -109,6 +121,8 @@ void MainWindow::keyPressSlot(int key)
             mMyDump->show();
             mMyDump->setFocus();
             mMyDisassembly->hide();
+            // Tell hex dump to change its page
+            mSwitchedFromDisassembly = true;
         }
 
         mDisplayToggle = !mDisplayToggle;
