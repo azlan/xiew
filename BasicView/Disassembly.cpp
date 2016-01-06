@@ -1290,8 +1290,10 @@ void Disassembly::disassembleAt(dsint parVA, dsint parCIP, bool history, dsint n
 
     if(!wBase || !wSize)
         return;
-    dsint wRVA = parVA - wBase;
-    dsint wCipRva = parCIP - wBase;
+    //dsint wRVA = parVA - wBase;
+    //dsint wCipRva = parCIP - wBase;
+    dsint wRVA = parVA;
+    dsint wCipRva = parCIP;
 
     HistoryData_t newHistory;
 

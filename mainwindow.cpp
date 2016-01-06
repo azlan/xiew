@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mMyDump, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDisassembly, SIGNAL(keyPressSignal(int)), this, SLOT(keyPressSlot(int)));
     connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
+    connect(mMyDisassembly, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
     connect(mMyDump, SIGNAL(currentTableOffsetSignal(int)), this, SLOT(updateTableOffsetSlot(int)));
 
     mDisplayToggle = true;
@@ -71,7 +72,8 @@ void MainWindow::renderView()
     {
         mMyDisassembly->mMemPage->setAttributes((duint)base, size);
         mMyDisassembly->setRowCount(size);
-        mMyDisassembly->reloadData();
+        mMyDisassembly->disassembleAt(offset, offset);
+
     }
 }
 

@@ -77,7 +77,6 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     {
         if(wKey == Qt::Key_Home)
         {
-
             setSingleSelection(0);
             setTableOffset(0);
         }

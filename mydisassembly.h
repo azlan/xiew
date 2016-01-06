@@ -17,7 +17,7 @@ private:
     bool event(QEvent *event);
 signals:
     void keyPressSignal(int key);
-
+    void currentOffsetSignal(int offset);
 };
 
 #endif // MYDISASSEMBLY_H

@@ -13,6 +13,7 @@ void MyDisassembly::keyPressEvent(QKeyEvent *event)
     int key = event->key();
     Disassembly::keyPressEvent(event);
     emit keyPressSignal(key);
+    emit currentOffsetSignal(getInitialSelection());
 }
 
 bool MyDisassembly::event(QEvent *event)
