@@ -10,9 +10,21 @@ MyDisassembly::~MyDisassembly()
 
 void MyDisassembly::keyPressEvent(QKeyEvent *event)
 {
-    int key = event->key();
+    int wKey = event->key();
+
+    if (wKey == Qt::Key_PageUp)
+    {
+        dsint previousPageRVA = getInstructionRVA(getTableOffset(), -getNbrOfLineToPrint());
+        setSingleSelection( previousPageRVA);
+    }
+    else if (wKey == Qt::Key_PageDown)
+    {
+        dsint nextPageRVA = getInstructionRVA(getTableOffset(), getNbrOfLineToPrint());
+        setSingleSelection( nextPageRVA);
+    }
+
     Disassembly::keyPressEvent(event);
-    emit keyPressSignal(key);
+    emit keyPressSignal(wKey);
     emit currentOffsetSignal(getInitialSelection());
 }
 
