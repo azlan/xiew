@@ -28,6 +28,10 @@ private:
     void keyPressEvent(QKeyEvent* e);
     bool event(QEvent * event);
 
+    void checkBottomRow(const int wCurrentTableOffset, const int wViewableRow, int wSelectedOffset, const int wBytePerRow);
+
+    void checkTopRow(int wSelectedOffset, const int wCurrentTableOffset, const int wBytePerRow);
+
 signals:
     void keyPressSignal(int key);
     void currentOffsetSignal(int offset);

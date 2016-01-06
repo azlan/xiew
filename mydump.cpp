@@ -49,6 +49,20 @@ void MyDump::hexAsciiSlot()
     reloadData();
 }
 
+void MyDump::checkBottomRow(const int wCurrentTableOffset, const int wViewableRow, int wSelectedOffset, const int wBytePerRow)
+{
+    auto lastRowOffset = (wCurrentTableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
+    if (wSelectedOffset > lastRowOffset)
+        verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+}
+
+void MyDump::checkTopRow(int wSelectedOffset, const int wCurrentTableOffset, const int wBytePerRow)
+{
+    auto currentRow = wSelectedOffset / wBytePerRow;
+    if (currentRow == (wCurrentTableOffset - 1))
+        verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
+}
+
 void MyDump::keyPressEvent(QKeyEvent *event)
 {
     const auto wKey = event->key();
@@ -65,12 +79,14 @@ void MyDump::keyPressEvent(QKeyEvent *event)
             wSelectedOffset = wSize - 1;
 
         setSingleSelection(wSelectedOffset);
+        checkBottomRow(wCurrentTableOffset, wViewableRow, wSelectedOffset, wBytePerRow);
     }
     else if(wKey == Qt::Key_Left)
     {
         if (wSelectedOffset != 0)
         {
             setSingleSelection(--wSelectedOffset);
+            checkTopRow(wSelectedOffset, wCurrentTableOffset, wBytePerRow);
         }
     }
     else if(wKey == Qt::Key_Up)
@@ -79,10 +95,7 @@ void MyDump::keyPressEvent(QKeyEvent *event)
         {
             wSelectedOffset -= wBytePerRow;
             setSingleSelection(wSelectedOffset);
-
-            auto currentRow = wSelectedOffset / wBytePerRow;
-            if (currentRow == (wCurrentTableOffset - 1))
-                verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
+            checkTopRow(wSelectedOffset, wCurrentTableOffset, wBytePerRow);
        }
     }
     else if(wKey == Qt::Key_Down)
@@ -92,11 +105,7 @@ void MyDump::keyPressEvent(QKeyEvent *event)
             wSelectedOffset = wSize - 1;
 
         setSingleSelection(wSelectedOffset);
-
-        auto lastRowOffset = (wCurrentTableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
-
-        if (wSelectedOffset > lastRowOffset)
-            verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+        checkBottomRow(wCurrentTableOffset, wViewableRow, wSelectedOffset, wBytePerRow);
     }
     else if(wKey == Qt::Key_PageUp)
     {
