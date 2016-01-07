@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     Disassembler/QBeaEngine.cpp \
     mydisassembly.cpp \
     GleeBug/Static.Pe.cpp \
-    Xiew/xfile.cpp
+    Xiew/xfile.cpp \
+    Gui/GotoDialog.cpp \
+    BasicView/HistoryLineEdit.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -49,9 +51,12 @@ HEADERS  += mainwindow.h \
     GleeBug/Static.Pe.h \
     GleeBug/Static.Region.h \
     Xiew/xfile.h \
-    GleeBug/GleeBug.h
+    GleeBug/GleeBug.h \
+    Gui/GotoDialog.h \
+    BasicView/HistoryLineEdit.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    Gui/GotoDialog.ui
 
 INCLUDEPATH += \
     Gui \

@@ -53,7 +53,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::renderView()
 {
-
     auto file = mFileInstance[mCurrentFile];
     auto base = file->getBase();
     auto size = file->getSize();

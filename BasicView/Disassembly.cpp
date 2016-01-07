@@ -36,8 +36,8 @@ Disassembly::Disassembly(QWidget* parent) : AbstractTableView(parent)
     setRowCount(mMemPage->getSize());
 
     addColumnAt(getCharWidth() * 2 * sizeof(dsint) + 8, "", false); //address
-    addColumnAt(getCharWidth() * 2 * 12 + 8, "", false); //bytes
-    addColumnAt(getCharWidth() * 40, "", false); //disassembly
+    addColumnAt(getCharWidth() * 2 * 10, "", false); //bytes
+    addColumnAt(getCharWidth() * 48, "", false); //disassembly
     addColumnAt(20, "", false); //comments
 
     setShowHeader(false); //hide header
