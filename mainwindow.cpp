@@ -99,7 +99,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::updateOffsetSlot(int offset)
 {
-    this->setWindowTitle(QString("xiew - %1").arg(offset, 8, 16, QChar('0').toUpper()));
+    QFileInfo fileInfo(mFileInstance[mCurrentFile]->getFilename());
+    QString filename(fileInfo.fileName());
+    this->setWindowTitle(QString("xiew - %1 - %2").arg(offset, 8, 16, QChar('0')).toUpper().arg(filename));
+
     mFileInstance[mCurrentFile]->mCurrentOffset = offset;
 }
 

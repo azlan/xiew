@@ -80,6 +80,11 @@ void XFile::setCurrentTableOffset(const uint &currentTableOffset)
     mCurrentTableOffset = currentTableOffset;
 }
 
+QString XFile::getFilename() const
+{
+    return mFile.fileName();
+}
+
 uint XFile::getCurrentOffset() const
 {
     return mCurrentOffset;

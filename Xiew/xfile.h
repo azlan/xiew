@@ -26,6 +26,7 @@ public:
 
     uint getCurrentTableOffset() const;
     void setCurrentTableOffset(const uint &currentTableOffset);
+    QString getFilename() const;
 
 private:
     QFile mFile;
