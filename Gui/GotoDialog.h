@@ -35,6 +35,8 @@ private:
     Ui::GotoDialog* ui;
     //ValidateExpressionThread* mValidateThread;
     bool IsValidMemoryRange(duint addr);
+signals:
+    void buttonOk_clicked();
 };
 
 #endif // GOTODIALOG_H

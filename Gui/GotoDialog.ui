@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>539</width>
+    <width>293</width>
     <height>92</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <string>Enter expression to follow...</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resource.qrc">
+   <iconset>
     <normaloff>:/icons/images/geolocation-goto.png</normaloff>:/icons/images/geolocation-goto.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -87,9 +87,7 @@
   <tabstop>buttonOk</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
- <resources>
-  <include location="../../resource.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonCancel</sender>

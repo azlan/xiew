@@ -14,8 +14,8 @@ GotoDialog::GotoDialog(QWidget* parent) : QDialog(parent), ui(new Ui::GotoDialog
 //    if(!DbgIsDebugging()) //not debugging
 //        ui->labelError->setText("<font color='red'><b>Not debugging...</b></font>");
 //    else
-        ui->labelError->setText("<font color='red'><b>Invalid expression...</b></font>");
-    ui->buttonOk->setEnabled(false);
+    //ui->labelError->setText("<font color='red'><b>Invalid expression...</b></font>");
+    ui->buttonOk->setEnabled(true);
     ui->editExpression->setFocus();
     validRangeStart = 0;
     validRangeEnd = 0;
@@ -72,40 +72,40 @@ void GotoDialog::expressionChanged(bool validExpression, bool validPointer, dsin
 //        expressionText.clear();
 //    }
 //    else
-        if(fileOffset)
-    {
-        duint offset = value;
-        // TODO
-        duint va = 0; //DbgFunctions()->FileOffsetToVa(modName.toUtf8().constData(), offset);
-        if(va)
-        {
-            QString addrText = QString("%1").arg(va, sizeof(dsint) * 2, 16, QChar('0')).toUpper();
-            ui->labelError->setText(QString("<font color='#00DD00'><b>Correct expression! -> </b></font>" + addrText));
-            ui->buttonOk->setEnabled(true);
-            expressionText = expression;
-        }
-        else
-        {
-            ui->labelError->setText("<font color='red'><b>Invalid file offset...</b></font>");
-            ui->buttonOk->setEnabled(false);
-            expressionText.clear();
-        }
-    }
-    else
-    {
-        duint addr = value;
-        if(!validPointer)
-        {
-            ui->labelError->setText("<font color='red'><b>Invalid memory address...</b></font>");
-            ui->buttonOk->setEnabled(false);
-            expressionText.clear();
-        }
-        else if(!IsValidMemoryRange(addr))
-        {
-            ui->labelError->setText("<font color='red'><b>Memory out of range...</b></font>");
-            ui->buttonOk->setEnabled(false);
-            expressionText.clear();
-        }
+//        if(fileOffset)
+//    {
+//        duint offset = value;
+//        // TODO
+//        duint va = 0; //DbgFunctions()->FileOffsetToVa(modName.toUtf8().constData(), offset);
+//        if(va)
+//        {
+//            QString addrText = QString("%1").arg(va, sizeof(dsint) * 2, 16, QChar('0')).toUpper();
+//            ui->labelError->setText(QString("<font color='#00DD00'><b>Correct expression! -> </b></font>" + addrText));
+//            ui->buttonOk->setEnabled(true);
+//            expressionText = expression;
+//        }
+//        else
+//        {
+//            ui->labelError->setText("<font color='red'><b>Invalid file offset...</b></font>");
+//            ui->buttonOk->setEnabled(false);
+//            expressionText.clear();
+//        }
+//    }
+//    else
+//    {
+//        duint addr = value;
+//        if(!validPointer)
+//        {
+//            ui->labelError->setText("<font color='red'><b>Invalid memory address...</b></font>");
+//            ui->buttonOk->setEnabled(false);
+//            expressionText.clear();
+//        }
+//        else if(!IsValidMemoryRange(addr))
+//        {
+//            ui->labelError->setText("<font color='red'><b>Memory out of range...</b></font>");
+//            ui->buttonOk->setEnabled(false);
+//            expressionText.clear();
+//        }
 //        else
 //        {
 //            QString addrText;
@@ -126,7 +126,7 @@ void GotoDialog::expressionChanged(bool validExpression, bool validPointer, dsin
 //            ui->buttonOk->setEnabled(true);
 //            expressionText = expression;
 //        }
-    }
+    //}
 }
 
 bool GotoDialog::IsValidMemoryRange(duint addr)
@@ -141,6 +141,7 @@ void GotoDialog::on_buttonOk_clicked()
     ui->editExpression->setText("");
     expressionChanged(false, false, 0);
     expressionText = expression;
+    emit buttonOk_clicked();
 }
 
 void GotoDialog::finishedSlot(int result)

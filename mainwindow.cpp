@@ -3,6 +3,7 @@
 #include "mydump.h"
 #include "mydisassembly.h"
 #include "xfile.h"
+#include "GotoDialog.h"
 #include <QVector>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -10,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    mGotoDialog = new GotoDialog(this);
+
     mMyDump = new MyDump();
     ui->layoutMain->addWidget(mMyDump);
     mMyDump->show();
@@ -30,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mMyDump, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
     connect(mMyDisassembly, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
     connect(mMyDump, SIGNAL(currentTableOffsetSignal(int)), this, SLOT(updateTableOffsetSlot(int)));
+    connect(mGotoDialog, SIGNAL(buttonOk_clicked()),this,SLOT(gotoOffsetSlot()));
 
     mDisplayToggle = true;
 
@@ -38,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
 //    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
+
+//    mGotoDialog->show();
     mCurrentFile = 0;
     renderView();
 }
@@ -65,18 +72,14 @@ void MainWindow::renderView()
         mMyDump->printDumpAt((duint)base);
         mMyDump->setSingleSelection(offset);
 
-        if (mSwitchedFromDisassembly)
+        if (mUpdateTablePage)
         {
             // Recalculate table row
             tableOffset = offset / mMyDump->getBytePerRowCount();
-            mMyDump->setTableOffset(tableOffset);
             // Reset state
-            mSwitchedFromDisassembly = false;
+            mUpdateTablePage = false;
         }
-        else
-        {
-            mMyDump->setTableOffset(tableOffset);
-        }
+        mMyDump->setTableOffset(tableOffset);
         updateOffsetSlot(offset);
     }
     else
@@ -96,7 +99,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::updateOffsetSlot(int offset)
 {
-    this->setWindowTitle(QString("xiew - %1").arg(offset, 8, 16, QChar('0')));
+    this->setWindowTitle(QString("xiew - %1").arg(offset, 8, 16, QChar('0').toUpper()));
     mFileInstance[mCurrentFile]->mCurrentOffset = offset;
 }
 
@@ -105,9 +108,18 @@ void MainWindow::updateTableOffsetSlot(int offset)
     mFileInstance[mCurrentFile]->mCurrentTableOffset = offset;
 }
 
+void MainWindow::gotoOffsetSlot()
+{
+    auto expressionText  = mGotoDialog->expressionText;
+    auto offset = expressionText.toInt(0,16);
+    mFileInstance[mCurrentFile]->mCurrentOffset = offset;
+    mUpdateTablePage = true;
+    renderView();
+}
+
 void MainWindow::keyPressSlot(int key)
 {
-    if (key ==  Qt::Key_Return || key ==  Qt::Key_Enter  )
+    if (key ==  Qt::Key_Return || key ==  Qt::Key_Enter)
     {
         if (mMyDump->isVisible())
         {
@@ -121,7 +133,7 @@ void MainWindow::keyPressSlot(int key)
             mMyDump->setFocus();
             mMyDisassembly->hide();
             // Tell hex dump to change its page
-            mSwitchedFromDisassembly = true;
+            mUpdateTablePage = true;
         }
 
         mDisplayToggle = !mDisplayToggle;
@@ -130,7 +142,7 @@ void MainWindow::keyPressSlot(int key)
     }
 
     // Switching between loaded files
-    if (key ==  Qt::Key_Tab  )
+    if (key ==  Qt::Key_Tab)
     {
         mCurrentFile;
 
@@ -145,9 +157,16 @@ void MainWindow::keyPressSlot(int key)
     }
 
     // Escape to quit
-    if (key ==  Qt::Key_Escape  )
+    if (key ==  Qt::Key_Escape)
     {
         this->close();
         return;
     }
+
+    if (key ==  Qt::Key_F5)
+    {
+        mGotoDialog->show();
+        return;
+    }
+
 }

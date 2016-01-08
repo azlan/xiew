@@ -21,6 +21,12 @@ public:
     uint mCurrentTableOffset;
     bool mIsPE;
 
+    uint getCurrentOffset() const;
+    void setCurrentOffset(const uint &currentOffset);
+
+    uint getCurrentTableOffset() const;
+    void setCurrentTableOffset(const uint &currentTableOffset);
+
 private:
     QFile mFile;
     uchar *mMapFile;

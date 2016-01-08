@@ -69,3 +69,23 @@ int XFile::getSize()
 {
     return mFile.size();
 }
+
+uint XFile::getCurrentTableOffset() const
+{
+    return mCurrentTableOffset;
+}
+
+void XFile::setCurrentTableOffset(const uint &currentTableOffset)
+{
+    mCurrentTableOffset = currentTableOffset;
+}
+
+uint XFile::getCurrentOffset() const
+{
+    return mCurrentOffset;
+}
+
+void XFile::setCurrentOffset(const uint &currentOffset)
+{
+    mCurrentOffset = currentOffset;
+}

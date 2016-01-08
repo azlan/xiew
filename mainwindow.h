@@ -11,6 +11,12 @@ class MainWindow;
 class MyDump;
 class MyDisassembly;
 class XFile;
+class GotoDialog;
+
+enum ViewMode {
+    Hex,
+    Asm
+};
 
 class MainWindow : public QMainWindow
 {
@@ -27,8 +33,8 @@ private:
     std::vector<XFile *> mFileInstance;
     int mCurrentFile;
     bool mDisplayToggle;
-    bool mSwitchedFromDisassembly;
-
+    bool mUpdateTablePage;
+    GotoDialog *mGotoDialog;
 
     void renderView();
     void keyPressEvent(QKeyEvent* e);
@@ -38,6 +44,7 @@ public slots:
 private slots:
     void updateOffsetSlot(int offset);
     void updateTableOffsetSlot(int offset);
+    void gotoOffsetSlot();
 };
 
 #endif // MAINWINDOW_H
