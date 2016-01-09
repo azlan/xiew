@@ -4,15 +4,18 @@
 #include "mydisassembly.h"
 #include "xfile.h"
 #include "GotoDialog.h"
+#include "OpenFileDialog.h"
 #include <QVector>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    mCurrentFile (0)
 {
     ui->setupUi(this);
 
     mGotoDialog = new GotoDialog(this);
+    mOpenFileDialog = new OpenFileDialog(this);
 
     mMyDump = new MyDump();
     ui->layoutMain->addWidget(mMyDump);
@@ -35,17 +38,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mMyDisassembly, SIGNAL(currentOffsetSignal(int)), this, SLOT(updateOffsetSlot(int)));
     connect(mMyDump, SIGNAL(currentTableOffsetSignal(int)), this, SLOT(updateTableOffsetSlot(int)));
     connect(mGotoDialog, SIGNAL(buttonOk_clicked()),this,SLOT(gotoOffsetSlot()));
+    connect(mOpenFileDialog, SIGNAL(accepted()),this,SLOT(openFileSlot()));
 
     mDisplayToggle = true;
 
-    mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
-    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
+//    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
 //    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
 //    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
 
 
-//    mGotoDialog->show();
-    mCurrentFile = 0;
     renderView();
 }
 
@@ -60,6 +62,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::renderView()
 {
+    if (mFileInstance.size() == 0)
+        return;
+
     auto file = mFileInstance[mCurrentFile];
     auto base = file->getBase();
     auto size = file->getSize();
@@ -99,6 +104,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::updateOffsetSlot(int offset)
 {
+    if (mFileInstance.size() == 0)
+        return;
+
     QFileInfo fileInfo(mFileInstance[mCurrentFile]->getFilename());
     QString filename(fileInfo.fileName());
     this->setWindowTitle(QString("xiew - %1 - %2").arg(offset, 8, 16, QChar('0')).toUpper().arg(filename));
@@ -108,6 +116,8 @@ void MainWindow::updateOffsetSlot(int offset)
 
 void MainWindow::updateTableOffsetSlot(int offset)
 {
+    if (mFileInstance.size() == 0)
+        return;
     mFileInstance[mCurrentFile]->mCurrentTableOffset = offset;
 }
 
@@ -117,6 +127,17 @@ void MainWindow::gotoOffsetSlot()
     auto offset = expressionText.toInt(0,16);
     mFileInstance[mCurrentFile]->mCurrentOffset = offset;
     mUpdateTablePage = true;
+    renderView();
+}
+
+void MainWindow::openFileSlot()
+{
+    // TODO, replace container for mFileInstance
+    if (mFileInstance.size() > 0)
+        ++mCurrentFile;
+
+    auto filename = mOpenFileDialog->getSelectedFile();
+    mFileInstance.push_back(new XFile (filename));
     renderView();
 }
 
@@ -169,6 +190,15 @@ void MainWindow::keyPressSlot(int key)
     if (key ==  Qt::Key_F5)
     {
         mGotoDialog->show();
+        return;
+    }
+
+    if (key ==  Qt::Key_F9)
+    {
+        mCurrentDirectory = "C:\\test";
+        mOpenFileDialog->setDirectory(mCurrentDirectory);
+        mOpenFileDialog->listFiles();
+        mOpenFileDialog->show();
         return;
     }
 

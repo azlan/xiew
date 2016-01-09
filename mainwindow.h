@@ -12,6 +12,7 @@ class MyDump;
 class MyDisassembly;
 class XFile;
 class GotoDialog;
+class OpenFileDialog;
 
 enum ViewMode {
     Hex,
@@ -35,6 +36,8 @@ private:
     bool mDisplayToggle;
     bool mUpdateTablePage;
     GotoDialog *mGotoDialog;
+    OpenFileDialog *mOpenFileDialog;
+    QString mCurrentDirectory;
 
     void renderView();
     void keyPressEvent(QKeyEvent* e);
@@ -45,6 +48,7 @@ private slots:
     void updateOffsetSlot(int offset);
     void updateTableOffsetSlot(int offset);
     void gotoOffsetSlot();
+    void openFileSlot();
 };
 
 #endif // MAINWINDOW_H
