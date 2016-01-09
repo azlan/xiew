@@ -62,6 +62,26 @@ void OpenFileDialog::setSelectedFile(const QString &selectedFile)
 
 void OpenFileDialog::on_treeView_activated(const QModelIndex &index)
 {
-    mSelectedFile = mDirModel->filePath(index);
-    this->accept();
+    if (mDirModel->isDir(index))
+    {
+        auto mSelectedDir = mDirModel->filePath(index);
+        if (mSelectedDir.endsWith(".."))
+        {
+            // remove "/.."
+            mSelectedDir = mSelectedDir.left(mSelectedDir.length()-3);
+            QFileInfo info = (mSelectedDir);
+            // get parent directory
+            mSelectedDir = info.path();
+        }
+
+        setDirectory(mSelectedDir);
+        mDirModel->setRootPath(getDirectory());
+        mDirModel->setFilter(QDir::NoDot | QDir::AllEntries);
+        ui->treeView->setRootIndex(mDirModel->index(getDirectory()));
+    }
+    else
+    {
+        mSelectedFile = mDirModel->filePath(index);
+        this->accept();
+    }
 }

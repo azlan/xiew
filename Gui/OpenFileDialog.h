@@ -33,6 +33,7 @@ private:
     QFileSystemModel *mDirModel;
     QSortFilterProxyModel *mProxyModel;
     QString mSelectedFile;
+    QString mSelectedDir;
 
 private slots:
     void on_treeView_activated(const QModelIndex &index);

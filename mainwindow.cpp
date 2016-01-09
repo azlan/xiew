@@ -42,13 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mOpenFileDialog, SIGNAL(accepted()),this,SLOT(openFileSlot()));
 
     mDisplayToggle = true;
-
+    mCurrentDirectory = QDir::currentPath();
 //    mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
-//    mFileInstance.push_back(new XFile ("C:\\test\\test.exe"));
-//    mFileInstance.push_back(new XFile ("C:\\test\\test.dll"));
-//    mFileInstance.push_back(new XFile ("C:\\test\\test2.exe"));
-
-
     renderView();
 }
 
@@ -252,8 +247,6 @@ void MainWindow::keyPressSlot(int key)
 
     if (key ==  Qt::Key_F9)
     {
-        mCurrentDirectory = "C:\\test";
-        mOpenFileDialog->setDirectory(mCurrentDirectory);
         mOpenFileDialog->listFiles();
         mOpenFileDialog->show();
         return;
