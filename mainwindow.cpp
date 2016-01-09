@@ -5,6 +5,7 @@
 #include "xfile.h"
 #include "GotoDialog.h"
 #include "OpenFileDialog.h"
+#include <QMessageBox>
 #include <QVector>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -187,9 +188,65 @@ void MainWindow::keyPressSlot(int key)
         return;
     }
 
+    if (key ==  Qt::Key_F1)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
+    if (key ==  Qt::Key_F2)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
+    if (key ==  Qt::Key_F3)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
+    if (key ==  Qt::Key_F4)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
     if (key ==  Qt::Key_F5)
     {
         mGotoDialog->show();
+        return;
+    }
+
+    if (key ==  Qt::Key_F6)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
+    if (key ==  Qt::Key_F7)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
+        return;
+    }
+
+    if (key ==  Qt::Key_F8)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Not impemented yet");
+        msgBox.exec();
         return;
     }
 
@@ -199,6 +256,12 @@ void MainWindow::keyPressSlot(int key)
         mOpenFileDialog->setDirectory(mCurrentDirectory);
         mOpenFileDialog->listFiles();
         mOpenFileDialog->show();
+        return;
+    }
+
+    if (key ==  Qt::Key_F10)
+    {
+        this->close();
         return;
     }
 
