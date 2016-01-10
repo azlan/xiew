@@ -41,9 +41,11 @@ private:
 
     void renderView();
     void keyPressEvent(QKeyEvent* e);
-
+    void openFile(QString &filePath);
+    
 public slots:
     void keyPressSlot(int key);
+
 private slots:
     void updateOffsetSlot(int offset);
     void updateTableOffsetSlot(int offset);

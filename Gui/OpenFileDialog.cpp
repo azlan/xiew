@@ -15,8 +15,6 @@ OpenFileDialog::OpenFileDialog(QWidget *parent) :
     mDir = new QDir;
     mDirModel = new QFileSystemModel(this);
     mProxyModel = new QSortFilterProxyModel(this);
-    //connect(ui->treeView, SIGNAL(activated(QModelIndex)),this,SLOT(getFileIndexSlot(QModelIndex)));
-
 }
 
 OpenFileDialog::~OpenFileDialog()

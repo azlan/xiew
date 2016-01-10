@@ -43,8 +43,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mDisplayToggle = true;
     mCurrentDirectory = QDir::currentPath();
-//    mFileInstance.push_back(new XFile ("C:\\test\\a.bin"));
-    renderView();
+
+    if (QApplication::argc() == 1)
+        return;
+
+    // get input file from command line parameter
+    auto filePath = QApplication::arguments().at(1);
+    openFile(filePath);
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +59,18 @@ MainWindow::~MainWindow()
         delete file;
     }
     delete ui;
+}
+
+void MainWindow::openFile(QString &filePath)
+{
+    auto fileInstance = new XFile (filePath);
+    if (fileInstance->isOpened())
+    {
+        mFileInstance.push_back(fileInstance);
+        renderView();
+    }
+    else
+        delete fileInstance;
 }
 
 void MainWindow::renderView()
@@ -133,8 +150,7 @@ void MainWindow::openFileSlot()
         ++mCurrentFile;
 
     auto filename = mOpenFileDialog->getSelectedFile();
-    mFileInstance.push_back(new XFile (filename));
-    renderView();
+    openFile(filename);
 }
 
 void MainWindow::keyPressSlot(int key)
@@ -257,5 +273,4 @@ void MainWindow::keyPressSlot(int key)
         this->close();
         return;
     }
-
 }

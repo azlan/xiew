@@ -23,7 +23,7 @@ XFile::XFile(const QString fileName):
     }
     else
     {
-        QMessageBox::critical(0, "Error", QString("XFile::XFile failed (%1)!\n").arg(mFile.errorString()));
+        QMessageBox::critical(0, "Error", QString("XFile::XFile failed (%1) - (%2)!\n").arg(fileName).arg(mFile.errorString()));
     }
 }
 
@@ -83,6 +83,11 @@ void XFile::setCurrentTableOffset(const uint &currentTableOffset)
 QString XFile::getFilename() const
 {
     return mFile.fileName();
+}
+
+bool XFile::isOpened()
+{
+    return mFile.isOpen();
 }
 
 uint XFile::getCurrentOffset() const
