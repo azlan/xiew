@@ -13,6 +13,7 @@ class MyDisassembly;
 class XFile;
 class GotoDialog;
 class OpenFileDialog;
+class PeHeaderDialog;
 
 enum ViewMode {
     Hex,
@@ -37,6 +38,7 @@ private:
     bool mUpdateTablePage;
     GotoDialog *mGotoDialog;
     OpenFileDialog *mOpenFileDialog;
+    PeHeaderDialog *mPeHeaderDialog;
     QString mCurrentDirectory;
 
     void renderView();

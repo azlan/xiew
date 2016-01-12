@@ -5,6 +5,7 @@
 #include "xfile.h"
 #include "GotoDialog.h"
 #include "OpenFileDialog.h"
+#include "PeHeaderDialog.h"
 #include <QMessageBox>
 #include <QVector>
 
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mGotoDialog = new GotoDialog(this);
     mOpenFileDialog = new OpenFileDialog(this);
+    mPeHeaderDialog = new PeHeaderDialog(this);
 
     mMyDump = new MyDump();
     ui->layoutMain->addWidget(mMyDump);
@@ -255,9 +257,7 @@ void MainWindow::keyPressSlot(int key)
 
     if (key ==  Qt::Key_F8)
     {
-        QMessageBox msgBox;
-        msgBox.setText("Not impemented yet");
-        msgBox.exec();
+        mPeHeaderDialog->show();
         return;
     }
 

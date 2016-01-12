@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     Xiew/xfile.cpp \
     Gui/GotoDialog.cpp \
     BasicView/HistoryLineEdit.cpp \
-    Gui/OpenFileDialog.cpp
+    Gui/OpenFileDialog.cpp \
+    Gui/PeHeaderDialog.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
@@ -55,11 +56,13 @@ HEADERS  += mainwindow.h \
     GleeBug/GleeBug.h \
     Gui/GotoDialog.h \
     BasicView/HistoryLineEdit.h \
-    Gui/OpenFileDialog.h
+    Gui/OpenFileDialog.h \
+    Gui/PeHeaderDialog.h
 
 FORMS    += mainwindow.ui \
     Gui/GotoDialog.ui \
-    Gui/OpenFileDialog.ui
+    Gui/OpenFileDialog.ui \
+    Gui/PeHeaderDialog.ui
 
 INCLUDEPATH += \
     Gui \
