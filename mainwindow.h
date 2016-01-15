@@ -16,8 +16,8 @@ class OpenFileDialog;
 class PeHeaderDialog;
 
 enum ViewMode {
-    Hex,
-    Asm
+    HexMode,
+    AsmMode
 };
 
 class MainWindow : public QMainWindow
@@ -34,12 +34,12 @@ private:
     MyDisassembly * mMyDisassembly;
     std::vector<XFile *> mFileInstance;
     int mCurrentFile;
-    bool mDisplayToggle;
     bool mUpdateTablePage;
     GotoDialog *mGotoDialog;
     OpenFileDialog *mOpenFileDialog;
     PeHeaderDialog *mPeHeaderDialog;
     QString mCurrentDirectory;
+    ViewMode mViewMode;
 
     void renderView();
     void keyPressEvent(QKeyEvent* e);

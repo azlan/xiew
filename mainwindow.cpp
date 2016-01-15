@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mGotoDialog, SIGNAL(buttonOk_clicked()),this,SLOT(gotoOffsetSlot()));
     connect(mOpenFileDialog, SIGNAL(accepted()),this,SLOT(openFileSlot()));
 
-    mDisplayToggle = true;
+    mViewMode = HexMode;
     mCurrentDirectory = QDir::currentPath();
 
     if (QApplication::argc() == 1)
@@ -86,7 +86,7 @@ void MainWindow::renderView()
     auto offset = file->mCurrentOffset;
     auto tableOffset = file->mCurrentTableOffset;
 
-    if(mDisplayToggle)
+    if(mViewMode == HexMode)
     {
         mMyDump->mMemPage->setAttributes((duint)base, size);
         mMyDump->printDumpAt((duint)base);
@@ -102,7 +102,7 @@ void MainWindow::renderView()
         mMyDump->setTableOffset(tableOffset);
         updateOffsetSlot(offset);
     }
-    else
+    else if (mViewMode == AsmMode)
     {
         mMyDisassembly->mMemPage->setAttributes((duint)base, size);
         mMyDisassembly->setRowCount(size);
@@ -174,7 +174,11 @@ void MainWindow::keyPressSlot(int key)
             mUpdateTablePage = true;
         }
 
-        mDisplayToggle = !mDisplayToggle;
+        if (mViewMode == HexMode)
+            mViewMode = AsmMode;
+        else if (mViewMode == AsmMode)
+            mViewMode = HexMode;
+
         renderView();
         return;
     }
