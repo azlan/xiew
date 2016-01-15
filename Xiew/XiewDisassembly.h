@@ -3,13 +3,13 @@
 
 #include "Disassembly.h"
 
-class MyDisassembly : public Disassembly
+class XiewDisassembly : public Disassembly
 {
     Q_OBJECT
 
 public:
-    explicit MyDisassembly(QWidget* parent = 0);
-    ~MyDisassembly();
+    explicit XiewDisassembly(QWidget* parent = 0);
+    ~XiewDisassembly();
 
 private:
     void keyPressEvent(QKeyEvent* e);

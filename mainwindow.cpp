@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mydump.h"
-#include "mydisassembly.h"
-#include "xfile.h"
+#include "XiewHexDump.h"
+#include "XiewDisassembly.h"
+#include "XiewFile.h"
 #include "GotoDialog.h"
 #include "OpenFileDialog.h"
 #include "PeHeaderDialog.h"
@@ -20,11 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mOpenFileDialog = new OpenFileDialog(this);
     mPeHeaderDialog = new PeHeaderDialog(this);
 
-    mMyDump = new MyDump();
+    mMyDump = new XiewHexDump();
     ui->layoutMain->addWidget(mMyDump);
     mMyDump->show();
 
-    mMyDisassembly = new MyDisassembly();
+    mMyDisassembly = new XiewDisassembly();
     ui->layoutMain->addWidget(mMyDisassembly);
     mMyDisassembly->hide();
 
@@ -65,7 +65,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::openFile(QString &filePath)
 {
-    auto fileInstance = new XFile (filePath);
+    auto fileInstance = new XiewFile (filePath);
     if (fileInstance->isOpened())
     {
         mFileInstance.push_back(fileInstance);

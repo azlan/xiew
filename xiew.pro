@@ -15,49 +15,49 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     BasicView/AbstractTableView.cpp \
+    BasicView/Disassembly.cpp \
     BasicView/HexDump.cpp \
+    BasicView/HistoryLineEdit.cpp \
+    Disassembler/QBeaEngine.cpp \
+    Disassembler/capstone_gui.cpp \
+    GleeBug/Static.Pe.cpp \
+    Gui/GotoDialog.cpp \
+    Gui/OpenFileDialog.cpp \
+    Gui/PeHeaderDialog.cpp \
+    Memory/MemoryPage.cpp \
     Utils/Configuration.cpp \
     Utils/RichTextPainter.cpp \
-    Memory/MemoryPage.cpp \
-    mydump.cpp \
-    BasicView/Disassembly.cpp \
-    capstone_wrapper/capstone_wrapper.cpp \
-    Disassembler/capstone_gui.cpp \
-    Disassembler/QBeaEngine.cpp \
-    mydisassembly.cpp \
-    GleeBug/Static.Pe.cpp \
-    Xiew/xfile.cpp \
-    Gui/GotoDialog.cpp \
-    BasicView/HistoryLineEdit.cpp \
-    Gui/OpenFileDialog.cpp \
-    Gui/PeHeaderDialog.cpp
+    Xiew/XiewDisassembly.cpp \
+    Xiew/XiewFile.cpp \
+    Xiew/XiewHexDump.cpp \
+    capstone_wrapper/capstone_wrapper.cpp
 
 HEADERS  += mainwindow.h \
     BasicView/AbstractTableView.h \
-    BasicView/HexDump.h \
-    Utils/Configuration.h \
-    Utils/RichTextPainter.h \
-    Utils/MenuBuilder.h \
-    Utils/QActionLambda.h \
-    Utils/StringUtil.h \
-    dbg_types.h \
-    Imports.h \
-    Memory/MemoryPage.h \
-    mydump.h \
     BasicView/Disassembly.h \
-    capstone_wrapper/capstone_wrapper.h \
-    Disassembler/capstone_gui.h \
+    BasicView/HexDump.h \
+    BasicView/HistoryLineEdit.h \
+    Capstone_wrapper/capstone_wrapper.h \
     Disassembler/QBeaEngine.h \
-    mydisassembly.h \
+    Disassembler/capstone_gui.h \
+    GleeBug/GleeBug.h \
     GleeBug/Static.Global.h \
     GleeBug/Static.Pe.h \
     GleeBug/Static.Region.h \
-    Xiew/xfile.h \
-    GleeBug/GleeBug.h \
     Gui/GotoDialog.h \
-    BasicView/HistoryLineEdit.h \
     Gui/OpenFileDialog.h \
-    Gui/PeHeaderDialog.h
+    Gui/PeHeaderDialog.h \
+    Imports.h \
+    Memory/MemoryPage.h \
+    Utils/Configuration.h \
+    Utils/MenuBuilder.h \
+    Utils/QActionLambda.h \
+    Utils/RichTextPainter.h \
+    Utils/StringUtil.h \
+    Xiew/XiewDisassembly.h \
+    Xiew/XiewFile.h \
+    Xiew/XiewHexDump.h \
+    dbg_types.h
 
 FORMS    += mainwindow.ui \
     Gui/GotoDialog.ui \
@@ -65,19 +65,19 @@ FORMS    += mainwindow.ui \
     Gui/PeHeaderDialog.ui
 
 INCLUDEPATH += \
-    Gui \
     BasicView \
+    Bridge \
     Disassembler \
+    GleeBug \
+    Global \
+    Gui \
+    Memory \
     ThirdPartyLibs/capstone \
     ThirdPartyLibs/snowman \
-    Memory \
-    Bridge \
-    Global \
     Utils \
-    capstone_wrapper \
+    Xiew \
     capstone\\include \
-    GleeBug \
-    Xiew
+    capstone_wrapper 
 
 ##
 ## Libraries

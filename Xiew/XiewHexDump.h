@@ -14,13 +14,13 @@ enum ViewEnum_t
 class QFile;
 class QEvent;
 
-class MyDump : public HexDump
+class XiewHexDump : public HexDump
 {
     Q_OBJECT
 
 public:
-    explicit MyDump(QWidget* parent = 0);
-    ~MyDump();
+    explicit XiewHexDump(QWidget* parent = 0);
+    ~XiewHexDump();
     QString paintContent(QPainter* painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h);
     void hexAsciiSlot();
 

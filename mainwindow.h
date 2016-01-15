@@ -8,9 +8,9 @@ namespace Ui {
 class MainWindow;
 }
 
-class MyDump;
-class MyDisassembly;
-class XFile;
+class XiewHexDump;
+class XiewDisassembly;
+class XiewFile;
 class GotoDialog;
 class OpenFileDialog;
 class PeHeaderDialog;
@@ -30,9 +30,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    MyDump *mMyDump;
-    MyDisassembly * mMyDisassembly;
-    std::vector<XFile *> mFileInstance;
+    XiewHexDump *mMyDump;
+    XiewDisassembly * mMyDisassembly;
+    std::vector<XiewFile *> mFileInstance;
     int mCurrentFile;
     bool mUpdateTablePage;
     GotoDialog *mGotoDialog;

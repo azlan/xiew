@@ -1,21 +1,21 @@
-#include "mydump.h"
+#include "XiewHexDump.h"
 
 #define MAX_LABEL_SIZE 256
 #define MAX_MODULE_SIZE 256
 
-MyDump::MyDump( QWidget* parent) : HexDump(parent)
+XiewHexDump::XiewHexDump( QWidget* parent) : HexDump(parent)
 {
     hexAsciiSlot();
     printDumpAt(mMemPage->getBase());
     setShowHeader(false); //hide header
 }
 
-MyDump::~MyDump()
+XiewHexDump::~XiewHexDump()
 {
 
 }
 
-void MyDump::hexAsciiSlot()
+void XiewHexDump::hexAsciiSlot()
 {
     Config()->setUint("HexDump", "DefaultView", (duint)ViewHexAscii);
     int charwidth = getCharWidth();
@@ -49,21 +49,21 @@ void MyDump::hexAsciiSlot()
     reloadData();
 }
 
-void MyDump::checkBottomRow(const int wCurrentTableOffset, const int wViewableRow, int wSelectedOffset, const int wBytePerRow)
+void XiewHexDump::checkBottomRow(const int wCurrentTableOffset, const int wViewableRow, int wSelectedOffset, const int wBytePerRow)
 {
     auto lastRowOffset = (wCurrentTableOffset * wBytePerRow) + (wViewableRow * wBytePerRow);
     if (wSelectedOffset > lastRowOffset)
         verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
 }
 
-void MyDump::checkTopRow(int wSelectedOffset, const int wCurrentTableOffset, const int wBytePerRow)
+void XiewHexDump::checkTopRow(int wSelectedOffset, const int wCurrentTableOffset, const int wBytePerRow)
 {
     auto currentRow = wSelectedOffset / wBytePerRow;
     if (currentRow == (wCurrentTableOffset - 1))
         verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
 }
 
-void MyDump::keyPressEvent(QKeyEvent *event)
+void XiewHexDump::keyPressEvent(QKeyEvent *event)
 {
     const auto wKey = event->key();
     const auto wBytePerRow = getBytePerRowCount();
@@ -171,7 +171,7 @@ void MyDump::keyPressEvent(QKeyEvent *event)
     emit keyPressSignal(wKey);
 }
 
-bool MyDump::event(QEvent *event)
+bool XiewHexDump::event(QEvent *event)
 {
     if (event->type()==QEvent::KeyPress )
     {
@@ -186,7 +186,7 @@ bool MyDump::event(QEvent *event)
     return true;
 }
 
-QString MyDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)
+QString XiewHexDump::paintContent(QPainter *painter, dsint rowBase, int rowOffset, int col, int x, int y, int w, int h)
 {
     // Reset byte offset when base address is reached
     if(rowBase == 0 && mByteOffset != 0)

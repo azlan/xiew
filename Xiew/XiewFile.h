@@ -4,11 +4,11 @@
 #include <QFile>
 #include <windows.h>
 
-class XFile
+class XiewFile
 {
 public:
-    XFile(const QString fileName);
-    ~XFile();
+    XiewFile(const QString fileName);
+    ~XiewFile();
     bool parsePeFile();
 
     PIMAGE_FILE_HEADER mFileHeader;

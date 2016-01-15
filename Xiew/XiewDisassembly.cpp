@@ -1,14 +1,14 @@
-#include "mydisassembly.h"
+#include "XiewDisassembly.h"
 
-MyDisassembly::MyDisassembly(QWidget* parent) : Disassembly (parent)
+XiewDisassembly::XiewDisassembly(QWidget* parent) : Disassembly (parent)
 {
 }
 
-MyDisassembly::~MyDisassembly()
+XiewDisassembly::~XiewDisassembly()
 {
 }
 
-void MyDisassembly::keyPressEvent(QKeyEvent *event)
+void XiewDisassembly::keyPressEvent(QKeyEvent *event)
 {
     int wKey = event->key();
 
@@ -28,7 +28,7 @@ void MyDisassembly::keyPressEvent(QKeyEvent *event)
     emit currentOffsetSignal(getInitialSelection());
 }
 
-bool MyDisassembly::event(QEvent *event)
+bool XiewDisassembly::event(QEvent *event)
 {
     if (event->type()==QEvent::KeyPress )
     {

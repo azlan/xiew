@@ -1,4 +1,4 @@
-#include "xfile.h"
+#include "XiewFile.h"
 #include "Static.Pe.h"
 
 
@@ -7,7 +7,7 @@
 
 using namespace GleeBug;
 
-XFile::XFile(const QString fileName):
+XiewFile::XiewFile(const QString fileName):
     mFile(fileName),
     mIsPE(false),
     mCurrentOffset(0),
@@ -27,11 +27,11 @@ XFile::XFile(const QString fileName):
     }
 }
 
-XFile::~XFile()
+XiewFile::~XiewFile()
 {
 }
 
-bool XFile::parsePeFile()
+bool XiewFile::parsePeFile()
 {
     auto result = false;
     Pe pe(mMapFile,mFile.size());
@@ -60,42 +60,42 @@ bool XFile::parsePeFile()
     return result;
 }
 
-void *XFile::getBase()
+void *XiewFile::getBase()
 {
     return mMapFile;
 }
 
-int XFile::getSize()
+int XiewFile::getSize()
 {
     return mFile.size();
 }
 
-uint XFile::getCurrentTableOffset() const
+uint XiewFile::getCurrentTableOffset() const
 {
     return mCurrentTableOffset;
 }
 
-void XFile::setCurrentTableOffset(const uint &currentTableOffset)
+void XiewFile::setCurrentTableOffset(const uint &currentTableOffset)
 {
     mCurrentTableOffset = currentTableOffset;
 }
 
-QString XFile::getFilename() const
+QString XiewFile::getFilename() const
 {
     return mFile.fileName();
 }
 
-bool XFile::isOpened()
+bool XiewFile::isOpened()
 {
     return mFile.isOpen();
 }
 
-uint XFile::getCurrentOffset() const
+uint XiewFile::getCurrentOffset() const
 {
     return mCurrentOffset;
 }
 
-void XFile::setCurrentOffset(const uint &currentOffset)
+void XiewFile::setCurrentOffset(const uint &currentOffset)
 {
     mCurrentOffset = currentOffset;
 }
