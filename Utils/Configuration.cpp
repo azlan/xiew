@@ -206,7 +206,7 @@ Configuration::Configuration() : QObject()
     defaultFonts.insert("Stack", font);
     defaultFonts.insert("Registers", font);
     defaultFonts.insert("HexEdit", font);
-    defaultFonts.insert("Application", QApplication::font());
+    //defaultFonts.insert("Application", QApplication::font());
     defaultFonts.insert("Log", QFont("Courier", 8, QFont::Normal, false));
 
     // hotkeys settings
@@ -443,14 +443,14 @@ void Configuration::readFonts()
 {
     Fonts = defaultFonts;
     //read config
-    for(int i = 0; i < Fonts.size(); i++)
-    {
-        QString id = Fonts.keys().at(i);
-        QFont font = fontFromConfig(id);
-        QFontInfo fontInfo(font);
-        if(id == "Application" || fontInfo.fixedPitch())
-            Fonts[id] = font;
-    }
+//    for(int i = 0; i < Fonts.size(); i++)
+//    {
+//        QString id = Fonts.keys().at(i);
+//        QFont font = fontFromConfig(id);
+//        QFontInfo fontInfo(font);
+//        if(id == "Application" || fontInfo.fixedPitch())
+//            Fonts[id] = font;
+//    }
 }
 
 void Configuration::writeFonts()

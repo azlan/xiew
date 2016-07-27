@@ -46,11 +46,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mViewMode = HexMode;
     mCurrentDirectory = QDir::currentPath();
 
-    if (QApplication::argc() == 1)
-        return;
+    //if (QApplication::argc() == 1)
+      //  return;
 
     // get input file from command line parameter
-    auto filePath = QApplication::arguments().at(1);
+    auto filePath = QString("c:\\windows\\notepad.exe");
     openFile(filePath);
 }
 
